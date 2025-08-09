@@ -1,0 +1,1038 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1" />
+
+		<title>Sniket — Cinematographer</title>
+		<meta name="description" content="Atmospheric, cinematic stills & motion. Portrait, street, product & short-form video with refined color and clean delivery." />
+		<meta name="theme-color" content="#0a0b0f" />
+		<meta property="og:title" content="Sniket — Cinematographer & Photographer" />
+		<meta property="og:description" content="Atmospheric, cinematic stills & motion. Portrait, street, product & short-form video." />
+		<meta property="og:type" content="website" />
+		<meta property="og:image" content="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=1200&auto=format&fit=crop" />
+		<meta name="twitter:card" content="summary_large_image" />
+
+		<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300..800&display=swap" rel="stylesheet" />
+
+		<link rel="preload" as="image" href="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?q=80&w=1400&auto=format&fit=crop" imagesrcset="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=800 800w, https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=1400 1400w" />
+
+		<!-- Tailwind -->
+		<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+		<script src="https://cdn.tailwindcss.com"></script>
+		<script>
+			tailwind.config = {
+				darkMode: ["class", '[data-theme="dark"]'],
+				theme: {
+					extend: {
+						fontFamily: {
+							sans: ["Inter", "ui-sans-serif", "system-ui", "-apple-system", "Segoe UI", "Roboto", "Noto Sans", "Ubuntu", "Cantarell", "Helvetica Neue", "Arial"],
+						},
+						colors: {
+							base: {
+								bg: "var(--c-bg)",
+								surface: "var(--c-surface)",
+								sub: "var(--c-sub)",
+								text: "var(--c-text)",
+								accent: "var(--c-accent)",
+								accent2: "var(--c-accent2)",
+								outline: "var(--c-outline)",
+							},
+						},
+						boxShadow: {
+							soft: "0 1px 2px rgba(0,0,0,.2), 0 8px 24px rgba(0,0,0,.25)",
+							glow: "0 0 0 2px rgba(125,211,252,.18), 0 10px 30px rgba(0,0,0,.45)",
+							glass: "0 4px 24px -4px rgba(0,0,0,.45), 0 2px 4px rgba(0,0,0,.35)",
+						},
+						animation: {
+							"fade-in": "fadeIn .8s ease forwards",
+							"gradient-pan": "gradientPan 14s linear infinite",
+						},
+						keyframes: {
+							fadeIn: { from: { opacity: 0, transform: "translateY(12px)" }, to: { opacity: 1, transform: "translateY(0)" } },
+							gradientPan: {
+								"0%": { transform: "translate3d(0,0,0) scale(1)" },
+								"50%": { transform: "translate3d(4%,-3%,0) scale(1.04)" },
+								"100%": { transform: "translate3d(-2%,3%,0) scale(1.02)" },
+							},
+						},
+					},
+				},
+			};
+		</script>
+
+		<style>
+			:root {
+				--c-bg: #0a0b0f;
+				--c-surface: #10131a;
+				--c-text: #eef1f3;
+				--c-sub: #9aa1a9;
+				--c-accent: #7dd3fc;
+				--c-accent2: #a78bfa;
+				--c-outline: #1f2730;
+				--radius-xl: 1.25rem;
+			}
+
+			[data-theme="light"] {
+				--c-bg: #f5f7fb;
+				--c-surface: #ffffff;
+				--c-text: #101319;
+				--c-sub: #5b6570;
+				--c-accent: #0284c7;
+				--c-accent2: #6366f1;
+				--c-outline: #e2e8f0;
+			}
+
+			html {
+				scroll-behavior: smooth;
+			}
+
+			body {
+				min-height: 100%;
+			}
+
+			::selection {
+				background: #7dd3fc33;
+			}
+
+			.bg-wrap {
+				position: fixed;
+				inset: 0;
+				z-index: -1;
+				overflow: hidden;
+				mask: linear-gradient(to bottom, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.3) 60%, rgba(0, 0, 0, 0.9));
+			}
+
+			.gradient-mesh {
+				position: absolute;
+				inset: -30% -15%;
+				background: radial-gradient(40% 30% at 18% 22%, rgba(167, 139, 250, 0.28), transparent 60%), radial-gradient(45% 35% at 78% 30%, rgba(125, 211, 252, 0.3), transparent 65%), radial-gradient(55% 45% at 50% 75%, rgba(236, 72, 153, 0.16), transparent 70%);
+				filter: blur(60px) saturate(120%);
+				animation: gradientPan 32s ease-in-out infinite alternate;
+				opacity: 0.9;
+				mix-blend-mode: plus-lighter;
+			}
+
+			[data-theme="light"] .gradient-mesh {
+				filter: blur(70px) saturate(140%);
+				mix-blend-mode: normal;
+				opacity: 0.55;
+			}
+
+			/* Reveal */
+			.reveal {
+				opacity: 0;
+				transform: translateY(18px);
+				transition: opacity 0.5s cubic-bezier(0.4, 0.08, 0, 1), transform 0.5s cubic-bezier(0.4, 0.08, 0, 1);
+			}
+
+			.reveal.in-view {
+				opacity: 1;
+				transform: none;
+			}
+
+			/* Card polish / glass */
+			.glass {
+				background: linear-gradient(140deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.02));
+				-webkit-backdrop-filter: blur(18px) saturate(140%);
+				backdrop-filter: blur(18px) saturate(140%);
+				border: 1px solid var(--c-outline);
+			}
+
+			[data-theme="light"] .glass {
+				background: linear-gradient(140deg, rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.65));
+			}
+
+			.card-hover {
+				position: relative;
+				transition: transform 0.55s cubic-bezier(0.22, 1, 0.26, 1), box-shadow 0.55s ease, opacity 0.35s ease;
+			}
+
+			.card-hover:hover {
+				transform: translateY(-4px) scale(1.012);
+				box-shadow: 0 12px 40px -10px rgba(0, 0, 0, 0.55);
+			}
+
+			[data-theme="light"] .card-hover:hover {
+				box-shadow: 0 18px 38px -12px rgba(0, 0, 0, 0.15);
+			}
+
+			/* Gallery overlay */
+			.gallery-figure {
+				overflow: hidden;
+			}
+
+			.gallery-figure img {
+				transition: transform 1s ease, filter 0.8s ease;
+			}
+
+			.gallery-figure:hover img {
+				transform: scale(1.06);
+				filter: brightness(1.08) saturate(1.1);
+			}
+
+			.gallery-figure .overlay {
+				position: absolute;
+				inset: 0;
+				background: linear-gradient(to top, rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0));
+				opacity: 0;
+				display: flex;
+				align-items: flex-end;
+				padding: 1rem;
+				transition: opacity 0.45s ease;
+			}
+
+			.gallery-figure:hover .overlay {
+				opacity: 1;
+			}
+
+			/* Lightbox */
+			.lightbox {
+				position: fixed;
+				inset: 0;
+				display: none;
+				place-items: center;
+				background: rgba(6, 8, 11, 0.9);
+				z-index: 80;
+			}
+
+			.lightbox.open {
+				display: grid;
+				animation: fadeIn 0.25s ease;
+			}
+
+			.lightbox img {
+				max-width: min(94vw, 1500px);
+				max-height: 84vh;
+				border-radius: 1.25rem;
+				box-shadow: 0 24px 68px -10px rgba(0, 0, 0, 0.65);
+			}
+
+			.lb-nav {
+				position: absolute;
+				inset: 0;
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+				pointer-events: none;
+			}
+
+			.lb-btn {
+				pointer-events: auto;
+				width: 3rem;
+				height: 3rem;
+				display: grid;
+				place-items: center;
+				border-radius: 9999px;
+				background: rgba(255, 255, 255, 0.06);
+				border: 1px solid rgba(255, 255, 255, 0.12);
+				backdrop-filter: blur(8px);
+				transition: background 0.3s ease;
+			}
+
+			.lb-btn:hover {
+				background: rgba(255, 255, 255, 0.12);
+			}
+
+			/* Skip link */
+			.skip-link {
+				position: fixed;
+				left: 50%;
+				top: 0.75rem;
+				transform: translate(-50%, -150%);
+				background: var(--c-surface);
+				color: var(--c-text);
+				padding: 0.65rem 1rem;
+				border-radius: 999px;
+				font-size: 0.85rem;
+				border: 1px solid var(--c-outline);
+				z-index: 100;
+				transition: transform 0.4s ease;
+			}
+
+			.skip-link:focus {
+				transform: translate(-50%, 0);
+				outline: 2px solid var(--c-accent);
+			}
+
+			/* Floating back-to-top */
+			#scrollTopBtn {
+				position: fixed;
+				right: 1.1rem;
+				bottom: 1.2rem;
+				z-index: 70;
+				opacity: 0;
+				transform: translateY(14px) scale(0.9);
+				transition: opacity 0.4s ease, transform 0.5s ease;
+			}
+
+			#scrollTopBtn.visible {
+				opacity: 1;
+				transform: translateY(0) scale(1);
+			}
+
+			/* Minimal scrollbar */
+			::-webkit-scrollbar {
+				width: 10px;
+			}
+
+			::-webkit-scrollbar-track {
+				background: transparent;
+			}
+
+			::-webkit-scrollbar-thumb {
+				background: linear-gradient(var(--c-accent), var(--c-accent2));
+				border-radius: 20px;
+				border: 2px solid var(--c-bg);
+			}
+
+			[data-theme="light"] ::-webkit-scrollbar-thumb {
+				background: linear-gradient(var(--c-accent2), var(--c-accent));
+			}
+
+			@media (prefers-reduced-motion: reduce) {
+				* {
+					animation-duration: 0.001s !important;
+					transition: none !important;
+				}
+
+				.gradient-mesh {
+					animation: none;
+				}
+			}
+
+			#favourites-gallery::-webkit-scrollbar {
+				height: 5px; /* scrollbar height */
+			}
+
+			#favourites-gallery::-webkit-scrollbar-thumb {
+				background-color: rgba(255, 255, 255, 0.3); /* scrollbar thumb color */
+				border-radius: 10px;
+			}
+
+			#favourites-gallery::-webkit-scrollbar-track {
+				background-color: transparent;
+			}
+
+			/* Firefox */
+			#favourites-gallery {
+				scrollbar-width: thin;
+				scrollbar-color: rgba(255, 255, 255, 0.3) transparent;
+			}
+		</style>
+		<script type="application/ld+json">
+			{
+				"@context": "https://schema.org",
+				"@type": "Person",
+				"name": "Sniket",
+				"jobTitle": "Cinematographer & Photographer",
+				"sameAs": ["https://instagram.com/xpsniket", "https://www.linkedin.com/in/xpsniket", "https://github.com/xpsniket"],
+				"url": "xpsniket.github.io"
+			}
+		</script>
+	</head>
+
+	<body class="bg-base-bg text-base-text font-sans antialiased relative" data-theme="dark">
+		<div class="bg-wrap" aria-hidden="true">
+			<div class="gradient-mesh"></div>
+		</div>
+
+		<!-- Header -->
+		<header class="sticky top-0 z-40 backdrop-blur supports-[backdrop-filter]:bg-base-bg/95 bg-black/80 border-b border-white/5 sm:bg-black/40">
+			<div class="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex items-center gap-6">
+				<!-- Mobile Menu Button -->
+				<button id="navToggle" class="sm:hidden inline-flex items-center justify-center rounded-md p-2 text-white/70 hover:text-white hover:bg-white/10 transition ml-2" aria-label="Open Menu" aria-expanded="false">
+					<svg xmlns="http://www.w3.org/2000/svg" class="size-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+					</svg>
+				</button>
+
+				<a href="#top" class="text-base-text tracking-wide hover:text-base-accent transition-colors text-lg">SNIKET</a>
+				<nav class="hidden sm:flex items-center gap-6 text-base-sub">
+					<a class="hover:text-base-text transition" href="#work">Photography</a>
+					<a class="hover:text-base-text transition" href="#tools">Tools</a>
+					<a class="hover:text-base-text transition" href="#about">About</a>
+					<a class="hover:text-base-text transition" href="#contact">Contact</a>
+				</nav>
+
+				<!-- Mobile Menu -->
+				<div id="mobileMenu" class="hidden sm:hidden absolute left-0 right-0 top-full border-b border-white/5 bg-black/80 backdrop-blur supports-[backdrop-filter]:bg-base-bg/95">
+					<div class="mx-auto max-w-7xl px-4 py-3 sm:px-6 lg:px-8">
+						<ul class="grid gap-2">
+							<li><a href="#about" class="block rounded-md px-3 py-2 text-sm font-semibold text-white/80 hover:text-white hover:bg-white/10 transition">About</a></li>
+							<li><a href="#projects" class="block rounded-md px-3 py-2 text-sm font-semibold text-white/80 hover:text-white hover:bg-white/10 transition">Projects</a></li>
+							<li><a href="#skills" class="block rounded-md px-3 py-2 text-sm font-semibold text-white/80 hover:text-white hover:bg-white/10 transition">Skills</a></li>
+							<li><a href="#github" class="block rounded-md px-3 py-2 text-sm font-semibold text-white/80 hover:text-white hover:bg-white/10 transition">GitHub</a></li>
+							<li><a href="#contact" class="block rounded-md px-3 py-2 text-sm font-semibold text-white/80 hover:text-white hover:bg-white/10 transition">Contact</a></li>
+						</ul>
+					</div>
+				</div>
+
+				<div class="ml-auto flex items-center gap-3">
+					<a href="https://discordapp.com/users/766877676010471454" class="ml-4 inline-flex items-center gap-2 rounded-full border border-white/10 px-4 py-2 text-sm text-base-text hover:bg-white/5 transition">
+						<span>Let’s talk</span>
+					</a>
+				</div>
+			</div>
+		</header>
+
+		<main id="main" tabindex="-1" class="outline-none">
+			<section id="top" class="max-w-7xl mx-auto px-4 sm:px-6 pt-14 sm:pt-18 lg:pt-24">
+				<!-- Top Card -->
+				<div class="glass rounded-2xl p-8 md:p-12 shadow-glass relative overflow-hidden">
+					<div id="name-card" class="relative flex justify-center items-center">
+						<div class="text-center">
+							<h1 class="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight leading-tight">Susobhan Pradhan</h1>
+							<p class="text-base sm:text-lg md:text-xl font-light opacity-90 mt-3">Welcome To My Portfolio</p>
+						</div>
+					</div>
+				</div>
+
+				<!-- Main Hero Content -->
+				<div class="mt-14 lg:mt-20 grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
+					<div class="lg:col-span-6 reveal">
+						<div class="flex flex-row items-start gap-6 mb-6 lg:mb-8 relative">
+							<div class="flex flex-col">
+								<h2 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight tracking-tight bg-clip-text text-transparent bg-[linear-gradient(100deg,var(--c-text),var(--c-accent2)_55%,var(--c-accent))]">Cinematic Still & Motion Imagery</h2>
+							</div>
+							<!-- Mobile Portrait -->
+							<div class="w-24 sm:w-28 md:w-32 lg:hidden relative rounded-2xl overflow-hidden shadow-glow ring-1 ring-white/10 flex-shrink-0 group">
+								<picture>
+									<source srcset="images/Picsart_25-06-27_13-36-24-158.png" />
+									<img src="images/Picsart_25-06-27_13-36-24-158.png" alt="Cinematic low-light portrait" width="600" height="600" class="w-full h-auto object-cover transition duration-[1600ms] group-hover:scale-[1.04]" loading="eager" fetchpriority="high" />
+								</picture>
+								<div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition duration-700 bg-[linear-gradient(to_top,rgba(0,0,0,.55),transparent_60%)]"></div>
+							</div>
+						</div>
+
+						<p class="text-base-sub max-w-xl text-base sm:text-lg leading-relaxed mb-6">
+							I chase the hush between frames, where light confesses, night caresses. Streets turn to stages, horizons to scores—color composes, shadow restores.<br />
+							In motionless moments, I direct the mood: dusk on skin, neon’s tune. Abstract whispers, candid echoes—landscapes held, stories hewn.
+						</p>
+						<div class="flex flex-wrap items-center gap-3">
+							<a href="#work" class="inline-flex items-center gap-2 rounded-full bg-base-text text-base-bg px-5 py-2.5 text-sm sm:text-base font-medium hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-base-accent/50 transition shadow-glow">
+								<span>View Photography</span>
+								<svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+									<path d="M5 12h14M13 6l6 6-6 6" />
+								</svg>
+							</a>
+						</div>
+					</div>
+
+					<!-- Desktop Image -->
+					<div class="lg:col-span-6 relative reveal hidden lg:block">
+						<div class="relative rounded-[1.75rem] overflow-hidden group shadow-glow ring-1 ring-white/10">
+							<picture>
+								<source srcset="images/Picsart_25-06-27_13-36-24-158.png" />
+								<img src="images/Picsart_25-06-27_13-36-24-158.png" alt="Cinematic low-light portrait" width="1000" height="520" class="w-full h-[520px] object-cover transition duration-[1600ms] group-hover:scale-[1.04]" loading="eager" fetchpriority="high" />
+							</picture>
+							<div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition duration-700 bg-[linear-gradient(to_top,rgba(0,0,0,.55),transparent_60%)]"></div>
+							<div class="absolute bottom-4 left-4 right-4 flex justify-between items-end text-base-sub font-semibold select-none">XPSNIKET</div>
+						</div>
+						<div class="absolute -inset-6 -z-10 blur-3xl opacity-40 pointer-events-none" style="background: radial-gradient(circle at 30% 40%, var(--c-accent) / 28%, transparent 60%), radial-gradient(circle at 75% 65%, var(--c-accent2) / 24%, transparent 65%)"></div>
+					</div>
+				</div>
+			</section>
+
+			<!-- Photography -->
+			<section id="work" class="max-w-7xl mx-auto px-4 sm:px-6 py-6 reveal">
+				<div class="glass rounded-2xl p-8 md:p-12 shadow-glass relative overflow-hidden">
+					<div class="flex flex-wrap items-end gap-4 justify-between">
+						<div class="reveal">
+							<h2 class="text-2xl sm:text-3xl font-semibold tracking-tight">Photography</h2>
+						</div>
+					</div>
+					<div class="mt-10">
+						<figure class="gallery-figure break-inside-avoid mb-5 group reveal card-hover rounded-xl overflow-hidden border border-white/10 relative" data-cat="product">
+							<img class="w-full object-cover aspect-[3/1]" src="images/DOC-20250809-WA0004_.jpg" alt="Minimal product shot with hard edge lighting" loading="lazy" width="900" height="1200" />
+						</figure>
+					</div>
+					<div class="mt-5 columns-2 gap-5 [column-fill:_balance]">
+						<figure class="gallery-figure break-inside-avoid mb-5 group reveal card-hover rounded-xl overflow-hidden border border-white/10 relative" data-cat="portrait">
+							<img class="w-full object-cover aspect-[3/4]" src="images/DOC-20250809-WA0027_.jpg" alt="Atmospheric portrait in low light" loading="lazy" width="900" height="1200" />
+						</figure>
+						<figure class="gallery-figure break-inside-avoid mb-5 group reveal card-hover rounded-xl overflow-hidden border border-white/10 relative" data-cat="street">
+							<img class="w-full object-cover aspect-[4/3]" src="images/1724753315832.jpg" alt="Reflective urban street scene at night" loading="lazy" width="900" height="1200" />
+						</figure>
+						<figure class="gallery-figure break-inside-avoid mb-5 group reveal card-hover rounded-xl overflow-hidden border border-white/10 relative" data-cat="product">
+							<img class="w-full object-cover aspect-[4/3]" src="images/DOC-20250809-WA0022_.jpg" alt="Minimal product shot with hard edge lighting" loading="lazy" width="900" height="1200" />
+						</figure>
+						<figure class="gallery-figure break-inside-avoid mb-5 group reveal card-hover rounded-xl overflow-hidden border border-white/10 relative" data-cat="product">
+							<img class="w-full object-cover aspect-[3/4]" src="images/IMG_20240625_180812.jpg" alt="Minimal product shot with hard edge lighting" loading="lazy" width="900" height="1200" />
+						</figure>
+					</div>
+					<div class="flex items-end justify-end mt-6">
+						<a href="/gallery.html" class="inline-flex items-center gap-2 rounded-full bg-base-text text-base-bg px-6 py-3 text-sm font-medium hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-base-accent/50 transition shadow-glow">
+							<span>View Gallery</span>
+							<svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+								<path d="M5 12h14M13 6l6 6-6 6" />
+							</svg>
+						</a>
+					</div>
+				</div>
+			</section>
+
+			<!-- Skills -->
+			<section id="Skills" class="max-w-7xl mx-auto px-4 sm:px-6 py-6 reveal">
+				<div class="glass rounded-2xl p-8 md:p-12 shadow-glass relative overflow-hidden">
+					<div class="absolute -right-10 -top-10 w-56 h-56 rounded-full bg-gradient-to-br from-base-accent/25 to-base-accent2/25 blur-3xl opacity-40 pointer-events-none"></div>
+					<div class="grid md:grid-cols-5 gap-10">
+						<div class="md:col-span-2">
+							<h2 class="text-2xl sm:text-3xl font-semibold tracking-tight">Skills</h2>
+							<p class="mt-3 text-sm text-base-sub max-w-xs">Tailored production for brand, creator, and editorial needs — flexible licensing built in.</p>
+						</div>
+						<div class="md:col-span-3">
+							<ul class="grid sm:grid-cols-2 gap-5 text-sm">
+								<li class="p-4 rounded-xl border border-white/10 bg-white/5 hover:bg-white/[0.08] transition group">
+									<h3 class="font-medium flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-base-accent"></span> Natural Potrait</h3>
+									<p class="mt-2 text-xs text-base-sub leading-relaxed">Focusing to capture the beauty and wonder of the natural world.</p>
+								</li>
+								<li class="p-4 rounded-xl border border-white/10 bg-white/5 hover:bg-white/[0.08] transition group">
+									<h3 class="font-medium flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-base-accent2"></span> Macro Photography</h3>
+									<p class="mt-2 text-xs text-base-sub leading-relaxed">Love to explore the macro world of small subjects, often to a scale where the subject appears larger than life on the camera sensor.</p>
+								</li>
+								<li class="p-4 rounded-xl border border-white/10 bg-white/5 hover:bg-white/[0.08] transition group">
+									<h3 class="font-medium flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-base-accent"></span> Street / Landscape</h3>
+									<p class="mt-2 text-xs text-base-sub leading-relaxed">Street and landscape photographer capturing fleeting stories and grand horizons, blending candid human moments with expansive, atmospheric vistas for timeless visual narratives.</p>
+								</li>
+								<li class="p-4 rounded-xl border border-white/10 bg-white/5 hover:bg-white/[0.08] transition group">
+									<h3 class="font-medium flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-base-accent2"></span> Abstract</h3>
+									<p class="mt-2 text-xs text-base-sub leading-relaxed">Abstract photography artist distilling form, color, and texture into evocative, minimalist compositions that turn the ordinary into the surreal.</p>
+								</li>
+								<li class="p-4 rounded-xl border border-white/10 bg-white/5 hover:bg-white/[0.08] transition group sm:col-span-2">
+									<h3 class="font-medium flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-gradient-to-r from-base-accent to-base-accent2"></span> Retouch & Color</h3>
+									<p class="mt-2 text-xs text-base-sub leading-relaxed">Turning raw footage into cinematic, mood-driven visuals with precise tone, contrast, and colour harmony. Detail-obsessed, with a calibrated eye and experience across portraits and nature.</p>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<!-- About -->
+			<section id="about" class="max-w-7xl mx-auto px-4 sm:px-6 py-6 reveal">
+				<div class="glass rounded-2xl p-8 md:p-12 shadow-glass relative overflow-hidden">
+					<div class="grid md:grid-cols-5 gap-10">
+						<div class="md:col-span-2">
+							<h2 class="text-2xl sm:text-3xl font-semibold tracking-tight">About</h2>
+						</div>
+						<div class="md:col-span-3 text-base-sub space-y-5 leading-relaxed">
+							<p>Cinematic-minded photographer crafting mood-rich visuals through intentional light, color, and framing to evoke story and atmosphere in every frame.</p>
+							<p>Specializes in abstract, street, and landscape work, translating everyday scenes into narrative-driven compositions with refined tonal control and texture.</p>
+							<p class="text-base-text/90">Guided by storytelling and a calibrated aesthetic, continually exploring new techniques to deepen emotional impact and visual clarity.</p>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<!-- Tools -->
+			<section id="tools" class="max-w-7xl mx-auto px-4 sm:px-6 py-6 reveal">
+				<div class="glass rounded-2xl p-8 md:p-12 shadow-glass relative overflow-hidden">
+					<div class="grid md:grid-cols-5 gap-10">
+						<div class="md:col-span-2">
+							<h2 class="text-2xl sm:text-3xl font-semibold tracking-tight">Tools</h2>
+						</div>
+						<div class="md:col-span-3">
+							<div class="grid sm:grid-cols-2 gap-4">
+								<div class="rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-base-sub flex items-center gap-3 text-sm">
+									<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+										<path fill="currentColor" fill-rule="evenodd" d="M5 1a4 4 0 0 0-4 4v14a4 4 0 0 0 4 4h14a4 4 0 0 0 4-4V5a4 4 0 0 0-4-4zm1 5h2v9.5h4.5l-.5 2H6zm8.5 4v7.5h2v-4.25a2.35 2.35 0 0 1 .768-.824c.377-.242.921-.426 1.732-.426v-2c-.976 0-1.807.196-2.5.56V10z" clip-rule="evenodd" />
+									</svg>
+									Adobe Lightroom
+								</div>
+								<div class="rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-base-sub flex items-center gap-3 text-sm">
+									<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+										<path
+											fill="currentColor"
+											fill-rule="evenodd"
+											d="M5 1a4 4 0 0 0-4 4v14a4 4 0 0 0 4 4h14a4 4 0 0 0 4-4V5a4 4 0 0 0-4-4zm.5 6H9a3.5 3.5 0 1 1 0 7H7.5v3h-2zm2 5H9a1.5 1.5 0 0 0 0-3H7.5zm10.425-.366c-.857-.193-1.765-.345-2.423-.296c-.333.024-.758.128-.33.472c.353.282.77.459 1.188.635c.43.182.862.365 1.228.666c.511.42.912 1.032.912 1.889c0 .855-.404 1.51-1.048 1.9c-.569.344-1.256.442-1.851.457c-.962.024-2.022-.168-2.812-.362v-2.068c.728.208 1.858.453 2.762.43c.47-.011.747-.097.873-.173c.2-.12.018-.426-.105-.527c-.352-.29-.775-.468-1.2-.647c-.42-.177-.842-.355-1.198-.64c-.51-.41-.921-1.015-.921-1.87c0-.695.29-1.28.82-1.665c.472-.34 1.044-.456 1.533-.492c.825-.061 1.777.082 2.572.245z"
+											clip-rule="evenodd"
+										/>
+									</svg>
+									Adobe Photoshop
+								</div>
+								<div class="rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-base-sub flex items-center gap-3 text-sm">
+									<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+										<path fill="currentColor" fill-rule="evenodd" d="M5 1a4 4 0 0 0-4 4v14a4 4 0 0 0 4 4h14a4 4 0 0 0 4-4V5a4 4 0 0 0-4-4zm2 5.5H6v10h2v-3h1.5a3.5 3.5 0 1 0 0-7zm2.5 5H8v-3h1.5a1.5 1.5 0 0 1 0 3m5-2.5v7.5h2v-4.25a2.35 2.35 0 0 1 .768-.824c.377-.242.921-.426 1.732-.426V9c-.976 0-1.807.196-2.5.56V9z" clip-rule="evenodd" />
+									</svg>
+									Adobe Premiere Pro
+								</div>
+								<div class="rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-base-sub flex items-center gap-3 text-sm">
+									<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+										<path
+											fill="currentColor"
+											fill-rule="evenodd"
+											d="M5 1a4 4 0 0 0-4 4v14a4 4 0 0 0 4 4h14a4 4 0 0 0 4-4V5a4 4 0 0 0-4-4zM3.512 16.472l3.194-9.128v-.66h2.55l3.534 9.788H10.6l-.832-2.287H6.309l-.775 2.287zm3.345-4.233H9.2L8.03 8.422zM19.329 14.6v1.7c-.347.14-1.308.417-2.381.417c-1.342 0-3.78-.643-3.78-3.988c0-2.948 2.174-3.798 3.78-3.798c1.436 0 3.042 1.058 3.042 3.08v1.323h-4.648c.132.535.691 1.606 1.87 1.606s1.903-.227 2.117-.34m-3.969-2.683h2.703c-.032-.466-.34-1.399-1.323-1.399s-1.33.932-1.38 1.399"
+											clip-rule="evenodd"
+										/>
+									</svg>
+									After Effects
+								</div>
+								<div class="rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-base-sub flex items-center gap-3 text-sm">
+									<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 16 16">
+										<path
+											fill="currentColor"
+											d="M10.839 9.531a2.753 2.753 0 0 1 3.162 2.719a2.75 2.75 0 0 1-2.75 2.75a2.75 2.75 0 0 1-2.75-2.75c0-.832.372-1.58.959-2.084L8.001 7.977l-1.459 2.189a2.74 2.74 0 0 1 .959 2.084A2.75 2.75 0 0 1 4.751 15a2.75 2.75 0 0 1-2.75-2.75a2.752 2.752 0 0 1 3.161-2.72l1.937-2.906l-2.973-4.459a.75.75 0 1 1 1.248-.832zM3.5 12.25c0 .689.561 1.25 1.25 1.25v-.001A1.25 1.25 0 1 0 3.5 12.25m6.5 0a1.251 1.251 0 0 0 2.5 0a1.252 1.252 0 0 0-1.681-1.173l-.013.005l-.046.018c-.446.19-.76.634-.76 1.15m1.666-11.124a.75.75 0 0 1 .208 1.04L9.802 5.273L8.901 3.92l1.725-2.587a.75.75 0 0 1 1.04-.208"
+										/>
+									</svg>
+									Capcut
+								</div>
+								<div class="rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-base-sub flex items-center gap-3 text-sm">
+									<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 20 20">
+										<path fill="currentColor" d="M11.072 2.462a1.5 1.5 0 0 0-2.144 0L5.691 5.77a6.03 6.03 0 0 0 .057 8.493l.01.009A5.98 5.98 0 0 0 9.5 16.007V17.5a.5.5 0 1 0 1 0v-1.491a5.98 5.98 0 0 0 3.743-1.737l.009-.01l.011-.01a6.03 6.03 0 0 0 .046-8.482zm-.572 12.53a5 5 0 0 1-1 0V9.498a.5.5 0 1 1 1 0z" />
+									</svg>
+									Snapseed
+								</div>
+								<div class="rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-base-sub flex items-center gap-3 text-sm sm:col-span-2">
+									<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+										<path fill="currentColor" d="M13.925 2.504a2.25 2.25 0 0 1 1.94 1.11l.814 1.387h2.071A3.25 3.25 0 0 1 22 8.25v9.5A3.25 3.25 0 0 1 18.75 21H5.25A3.25 3.25 0 0 1 2 17.75v-9.5A3.25 3.25 0 0 1 5.25 5h2.08l.875-1.424a2.25 2.25 0 0 1 1.917-1.073zM12 8a4.5 4.5 0 1 0 0 9a4.5 4.5 0 0 0 0-9m0 1.5a3 3 0 1 1 0 6a3 3 0 0 1 0-6" />
+									</svg>
+									Smartphone Lens • Control Of Lights • Detailed Visuals
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<!-- Social -->
+			<section id="social" class="max-w-7xl mx-auto px-4 sm:px-6 py-6 reveal">
+				<div class="glass rounded-2xl p-8 md:p-12 shadow-glass relative overflow-hidden">
+					<div class="grid md:grid-cols-5 gap-10">
+						<div class="md:col-span-2">
+							<h2 class="text-2xl sm:text-3xl font-semibold tracking-tight">Social</h2>
+						</div>
+						<div class="md:col-span-3">
+							<a href="mailto:xpsniket@gmail.com">
+								<div class="rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-base-sub flex items-center gap-3 text-sm">
+									<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+										<path
+											fill="currentColor"
+											fill-rule="evenodd"
+											d="M5 1a4 4 0 0 0-4 4v14a4 4 0 0 0 4 4h14a4 4 0 0 0 4-4V5a4 4 0 0 0-4-4zm6.065 9.565l-5.643-4.02h-.74a.68.68 0 0 0-.64.445l7.458 5.445l7.458-5.445a.68.68 0 0 0-.64-.445h-.74l-5.643 4.02l-.435.31zm3.928-4.02H8.007L11.5 9.033zM4 8.817v7.956c0 .376.305.681.682.681h.954v-7.443zm15 0l-1.636 1.194v7.444h.954a.68.68 0 0 0 .682-.682zm-3.136 2.29l-3.922 2.863l-.442.322l-.442-.322l-3.922-2.863v6.348h8.728z"
+											clip-rule="evenodd"
+										/>
+									</svg>
+									Email
+								</div>
+							</a>
+							<div class="mt-4 grid sm:grid-cols-2 gap-4 text-base-sub text-sm">
+								<a href="https://www.instagram.com/xpsniket">
+									<div class="rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-base-sub flex items-center gap-3 text-sm">
+										<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+											<path
+												fill="currentColor"
+												fill-rule="evenodd"
+												d="M5 1a4 4 0 0 0-4 4v14a4 4 0 0 0 4 4h14a4 4 0 0 0 4-4V5a4 4 0 0 0-4-4zm-.5 8A4.5 4.5 0 0 1 9 4.5h6A4.5 4.5 0 0 1 19.5 9v6a4.5 4.5 0 0 1-4.5 4.5H9A4.5 4.5 0 0 1 4.5 15zM9 5.5A3.5 3.5 0 0 0 5.5 9v6A3.5 3.5 0 0 0 9 18.5h6a3.5 3.5 0 0 0 3.5-3.5V9A3.5 3.5 0 0 0 15 5.5zm8 2.667a.833.833 0 1 1-1.667 0a.833.833 0 0 1 1.667 0M8.167 12a3.833 3.833 0 1 1 7.666 0a3.833 3.833 0 0 1-7.666 0M12 9.167a2.833 2.833 0 1 0 0 5.666a2.833 2.833 0 0 0 0-5.666"
+												clip-rule="evenodd"
+											/></svg
+										>xpsniket
+									</div>
+								</a>
+								<a href="https://www.instagram.com/creator_of_jgm">
+									<div class="rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-base-sub flex items-center gap-3 text-sm">
+										<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+											<path
+												fill="currentColor"
+												fill-rule="evenodd"
+												d="M5 1a4 4 0 0 0-4 4v14a4 4 0 0 0 4 4h14a4 4 0 0 0 4-4V5a4 4 0 0 0-4-4zm-.5 8A4.5 4.5 0 0 1 9 4.5h6A4.5 4.5 0 0 1 19.5 9v6a4.5 4.5 0 0 1-4.5 4.5H9A4.5 4.5 0 0 1 4.5 15zM9 5.5A3.5 3.5 0 0 0 5.5 9v6A3.5 3.5 0 0 0 9 18.5h6a3.5 3.5 0 0 0 3.5-3.5V9A3.5 3.5 0 0 0 15 5.5zm8 2.667a.833.833 0 1 1-1.667 0a.833.833 0 0 1 1.667 0M8.167 12a3.833 3.833 0 1 1 7.666 0a3.833 3.833 0 0 1-7.666 0M12 9.167a2.833 2.833 0 1 0 0 5.666a2.833 2.833 0 0 0 0-5.666"
+												clip-rule="evenodd"
+											/>
+										</svg>
+										creator_of_jgm
+									</div>
+								</a>
+								<a href="http://facebook.com/xpsniket">
+									<div class="rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-base-sub flex items-center gap-3 text-sm">
+										<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+											<path
+												fill="currentColor"
+												fill-rule="evenodd"
+												d="M5 1a4 4 0 0 0-4 4v14a4 4 0 0 0 4 4h14a4 4 0 0 0 4-4V5a4 4 0 0 0-4-4zm4.682 6.273A3.273 3.273 0 0 1 12.954 4h2.91c.2 0 .363.163.363.364v2.909c0 .2-.163.363-.363.363h-1.455a1.09 1.09 0 0 0-1.09 1.091v1.091h2.545a.364.364 0 0 1 .352.452l-.727 2.91a.36.36 0 0 1-.353.274h-1.818v6.182a.364.364 0 0 1-.364.364h-2.909a.364.364 0 0 1-.363-.364v-6.181H7.864a.364.364 0 0 1-.364-.364v-2.91c0-.2.163-.363.364-.363h1.818z"
+												clip-rule="evenodd"
+											/>
+										</svg>
+										Facebook
+									</div>
+								</a>
+								<a href="http://x.com/xpsniket">
+									<div class="rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-base-sub flex items-center gap-3 text-sm">
+										<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+											<path fill="currentColor" fill-rule="evenodd" d="M5 1a4 4 0 0 0-4 4v14a4 4 0 0 0 4 4h14a4 4 0 0 0 4-4V5a4 4 0 0 0-4-4zm-.334 3.5a.75.75 0 0 0-.338 1.154l5.614 7.45l-5.915 6.345l-.044.051H6.03l4.83-5.179l3.712 4.928a.75.75 0 0 0 .337.251h4.422a.75.75 0 0 0 .336-1.154l-5.614-7.45L20.017 4.5h-2.05l-4.83 5.18l-3.714-4.928a.75.75 0 0 0-.337-.252zm10.88 13.548L6.431 5.952H8.45l9.114 12.095z" clip-rule="evenodd" />
+										</svg>
+										Twitter
+									</div>
+								</a>
+								<a href="http://linkedin.com/in/xpsniket">
+									<div class="rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-base-sub flex items-center gap-3 text-sm">
+										<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+											<path fill="currentColor" fill-rule="evenodd" d="M5 1a4 4 0 0 0-4 4v14a4 4 0 0 0 4 4h14a4 4 0 0 0 4-4V5a4 4 0 0 0-4-4zm1.205 6.91a1.705 1.705 0 1 0 0-3.41a1.705 1.705 0 0 0 0 3.41M7.909 19.5V9.273H4.5V19.5h3.41Zm4.432-10.227H9.273V19.5h3.068v-6.17c.395-.642 1.077-1.33 2.045-1.33c1.364 0 1.705 1.364 1.705 2.046V19.5H19.5v-5.454c0-1.828-.797-4.773-3.75-4.773c-1.878 0-2.92.685-3.41 1.327z" clip-rule="evenodd" />
+										</svg>
+										LinkedIn
+									</div>
+								</a>
+								<a href="http://github.com/xpsniket">
+									<div class="rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-base-sub flex items-center gap-3 text-sm">
+										<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+											<path
+												fill="currentColor"
+												fill-rule="evenodd"
+												d="M5 1a4 4 0 0 0-4 4v14a4 4 0 0 0 4 4h14a4 4 0 0 0 4-4V5a4 4 0 0 0-4-4zm1.815 5.11a8 8 0 0 1 5.182-1.903a7.99 7.99 0 0 1 2.531 15.572c-.405.077-.535-.159-.535-.372v-2.212a1.9 1.9 0 0 0-.546-1.473c1.78-.197 3.648-.871 3.648-3.942a3.1 3.1 0 0 0-.822-2.146a2.87 2.87 0 0 0-.08-2.114s-.666-.214-2.194.82a7.56 7.56 0 0 0-4.002 0C8.472 7.306 7.8 7.52 7.8 7.52a2.87 2.87 0 0 0-.078 2.114a3.1 3.1 0 0 0-.823 2.144c0 3.063 1.866 3.748 3.64 3.95a1.7 1.7 0 0 0-.508 1.065a1.7 1.7 0 0 1-2.325-.664a1.68 1.68 0 0 0-1.224-.823s-.78-.01-.054.487c.426.271.74.686.887 1.168c0 0 .459 1.535 2.682 1.053c.003.504.002.929 0 1.19v.2c0 .21-.126.445-.525.375A7.99 7.99 0 0 1 6.815 6.11"
+												clip-rule="evenodd"
+											/>
+										</svg>
+										GitHub
+									</div>
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<section id="anilist" class="max-w-7xl mx-auto px-4 sm:px-6 py-6 reveal">
+				<div class="glass rounded-2xl p-4 sm:p-6 md:p-8 shadow-glass relative overflow-hidden">
+					<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-6 sm:gap-8 md:gap-10">
+						<!-- Title -->
+						<div class="md:col-span-2">
+							<h2 class="text-xl sm:text-2xl md:text-3xl font-semibold tracking-tight">AniList Stats</h2>
+						</div>
+
+						<!-- Stats + Gallery -->
+						<div class="md:col-span-3">
+							<div class="rounded-2xl border border-white/10 bg-white/5 p-6 lg:p-8 relative overflow-hidden">
+								<div class="absolute -inset-1 rounded-2xl pointer-events-none opacity-30" style="background: radial-gradient(circle at 20% 15%, var(--c-accent) / 25%, transparent 60%), radial-gradient(circle at 80% 85%, var(--c-accent2) / 25%, transparent 60%)"></div>
+
+								<!-- User Info -->
+								<div class="flex items-center justify-between relative">
+									<span id="anilist-username" class="text-lg font-medium">@Username</span>
+									<a id="anilist-profile" href="#" target="_blank" rel="noopener" class="inline-flex items-center gap-2 rounded-full bg-base-text text-base-bg px-4 py-2 text-sm font-medium hover:opacity-90 transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-base-accent/40">
+										View Profile
+										<svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
+											<path d="M5 12h14M13 6l6 6-6 6" />
+										</svg>
+									</a>
+								</div>
+
+								<!-- Stats Grid -->
+								<div class="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-4 relative">
+									<div class="rounded-lg border border-white/10 bg-white/5 p-4">
+										<span class="block text-sm text-base-sub/60">Anime Watched</span>
+										<span id="anime-count" class="block text-xl font-semibold">—</span>
+									</div>
+									<div class="rounded-lg border border-white/10 bg-white/5 p-4">
+										<span class="block text-sm text-base-sub/60">Mean Score</span>
+										<span id="mean-score" class="block text-xl font-semibold">—</span>
+									</div>
+									<div class="rounded-lg border border-white/10 bg-white/5 p-4">
+										<span class="block text-sm text-base-sub/60">Episodes Watched</span>
+										<span id="episodes-watched" class="block text-xl font-semibold">—</span>
+									</div>
+									<div class="rounded-lg border border-white/10 bg-white/5 p-4">
+										<span class="block text-sm text-base-sub/60">Time Watched</span>
+										<span id="time-watched" class="block text-xl font-semibold">—</span>
+									</div>
+								</div>
+
+								<!-- Favourites Slider -->
+								<h3 class="mt-8 mb-4 text-lg font-semibold">Favourite Anime</h3>
+
+								<div class="overflow-hidden">
+									<div class="flex gap-4 overflow-x-auto pb-2" id="favourites-gallery" style="-webkit-overflow-scrolling: touch">
+										<!-- JS Inserts Favourite Anime Cards -->
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<!-- Contact -->
+			<section id="contact" class="max-w-7xl mx-auto px-4 sm:px-6 py-6 reveal">
+				<div class="glass rounded-2xl p-8 md:p-12 shadow-glass relative overflow-hidden">
+					<div class="grid md:grid-cols-5 gap-10">
+						<div class="md:col-span-2">
+							<h2 class="text-2xl sm:text-3xl font-semibold tracking-tight">Contact</h2>
+						</div>
+						<div class="md:col-span-3">
+							<div class="rounded-2xl border border-white/10 bg-white/5 p-6 lg:p-8 relative overflow-hidden">
+								<div class="absolute -inset-1 rounded-2xl pointer-events-none opacity-30" style="background: radial-gradient(circle at 20% 15%, var(--c-accent) / 25%, transparent 60%), radial-gradient(circle at 80% 85%, var(--c-accent2) / 25%, transparent 60%)"></div>
+								<form id="contactForm" class="mt-0 grid gap-4 relative" aria-describedby="form-note">
+									<div id="formStatus" class="mt-2 text-sm"></div>
+									<div class="grid sm:grid-cols-2 gap-4">
+										<label class="relative group">
+											<span class="sr-only">Name</span>
+											<input name="name" class="peer w-full rounded-lg border border-white/10 bg-transparent px-4 py-3 placeholder:text-base-sub/60 focus:outline-none focus:ring-2 focus:ring-base-accent/40" placeholder="Name" required />
+										</label>
+										<label class="relative group">
+											<span class="sr-only">Email</span>
+											<input type="email" name="email" class="peer w-full rounded-lg border border-white/10 bg-transparent px-4 py-3 placeholder:text-base-sub/60 focus:outline-none focus:ring-2 focus:ring-base-accent/40" placeholder="Email" required />
+										</label>
+									</div>
+									<label class="relative group">
+										<span class="sr-only">Message</span>
+										<textarea name="message" rows="4" class="peer w-full rounded-lg border border-white/10 bg-transparent px-4 py-3 placeholder:text-base-sub/60 focus:outline-none focus:ring-2 focus:ring-base-accent/40" placeholder="Message" required></textarea>
+									</label>
+									<div class="flex flex-wrap items-center gap-4">
+										<button class="inline-flex items-center gap-2 rounded-full bg-base-text text-base-bg px-6 py-3 text-sm font-medium hover:opacity-90 transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-base-accent/40">
+											Send
+											<svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
+												<path d="M5 12h14M13 6l6 6-6 6" />
+											</svg>
+										</button>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+		</main>
+
+		<!-- Footer -->
+		<footer class="border-t border-white/5 py-10">
+			<div class="max-w-7xl mx-auto px-4 sm:px-6 flex flex-col items-center justify-center gap-2 text-base-sub text-md">
+				<p>© <span id="year"></span> • Made With ❤ By SNIKET</p>
+				<p class="text-xl font-semibold tracking-wide mt-1">Be Creative Stay Creative</p>
+			</div>
+		</footer>
+
+		<!-- Floating Scroll To Top -->
+		<button id="scrollTopBtn" aria-label="Scroll to top" class="rounded-full bg-base-text text-base-bg w-11 h-11 grid place-items-center shadow-glow hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-base-accent/40 transition">
+			<svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
+				<path d="M12 19V5m0 0-6 6m6-6 6 6" />
+			</svg>
+		</button>
+
+		<!-- Lightbox -->
+		<div id="lightbox" class="lightbox" role="dialog" aria-modal="true" aria-label="Image preview">
+			<button id="lightboxClose" class="absolute top-5 right-5 rounded-full border border-white/20 bg-white/10 px-4 py-2 text-xs font-medium text-base-text hover:bg-white/15 transition">Close</button>
+			<img id="lightboxImg" alt="Expanded gallery image" />
+		</div>
+
+		<script>
+			// Discord Webhook Message
+			const WEBHOOK_URL = "https://discord.com/api/webhooks/1403638244620369982/O5eRNvAIhG51_WsDS_nxjF2YZ4dKo-eb3r2Alh9YCZbeAJUD_CiaiP2Co4DAM0QAB30H";
+
+			const contactForm = document.getElementById("contactForm");
+			const formStatus = document.getElementById("formStatus");
+			if (contactForm) {
+				contactForm.addEventListener("submit", async (e) => {
+					e.preventDefault();
+					formStatus.textContent = "";
+					const data = new FormData(contactForm);
+					const name = (data.get("name") || "Anonymous").toString().trim() || "Anonymous";
+					const email = (data.get("email") || "").toString().trim();
+					const message = (data.get("message") || "").toString().trim();
+					if (!message) {
+						formStatus.textContent = "Please enter a message.";
+						formStatus.style.color = "#f87171";
+						return;
+					}
+					if (!email) {
+						formStatus.textContent = "Please enter a valid email.";
+						formStatus.style.color = "#f87171";
+						return;
+					}
+					formStatus.textContent = "Sending...";
+					formStatus.style.color = "#fbbf24";
+					const payload = {
+						content: `New Contact From ${name} (${email})`,
+						embeds: [
+							{
+								title: "Portfolio Contact",
+								color: 0xffffff,
+								fields: [
+									{ name: "Name", value: name, inline: true },
+									{ name: "Email", value: email, inline: false },
+									{ name: "Message", value: message.length > 1024 ? message.slice(0, 1021) + "..." : message },
+								],
+								timestamp: new Date().toISOString(),
+							},
+						],
+						allowed_mentions: { parse: [] },
+					};
+					try {
+						const res = await fetch(WEBHOOK_URL, {
+							method: "POST",
+							headers: { "Content-Type": "application/json" },
+							body: JSON.stringify(payload),
+						});
+						if (!res.ok) throw new Error("Request failed");
+						contactForm.reset();
+						formStatus.textContent = "Message sent successfully.";
+						formStatus.style.color = "#34d399";
+					} catch (err) {
+						formStatus.textContent = "Failed to send message!";
+						formStatus.style.color = "#f87171";
+					}
+				});
+			}
+
+			// Get Current Year
+			document.getElementById("year").textContent = new Date().getFullYear();
+
+			// Reveal On Scroll Animation
+			const revealEls = Array.from(document.querySelectorAll(".reveal"));
+			const io = new IntersectionObserver(
+				(entries) => {
+					entries.forEach((entry) => {
+						if (entry.isIntersecting) {
+							entry.target.classList.add("in-view");
+							io.unobserve(entry.target);
+						}
+					});
+				},
+				{ threshold: 0.18, rootMargin: "40px 0px -10%" }
+			);
+			revealEls.forEach((el, idx) => {
+				el.style.transitionDelay = Math.min(idx, 6) * 70 + "ms";
+				io.observe(el);
+			});
+
+			// Lightbox With Navigation
+			const lightbox = document.getElementById("lightbox");
+			const lightboxImg = document.getElementById("lightboxImg");
+			const lightboxClose = document.getElementById("lightboxClose");
+
+			document.querySelectorAll("#work figure img").forEach((img) => {
+				img.addEventListener("click", () => {
+					lightboxImg.src = img.src.replace("w=1400", "w=2000");
+					lightbox.classList.add("open");
+				});
+			});
+
+			const closeLb = () => lightbox.classList.remove("open");
+			lightboxClose.addEventListener("click", closeLb);
+			lightbox.addEventListener("click", (e) => {
+				if (e.target === lightbox) closeLb();
+			});
+
+			window.addEventListener("keydown", (e) => {
+				if (e.key === "Escape") closeLb();
+			});
+
+			// Scroll To Top Button
+			const scrollBtn = document.getElementById("scrollTopBtn");
+			const toggleScrollBtn = () => {
+				if (window.scrollY > 600) {
+					scrollBtn.classList.add("visible");
+				} else {
+					scrollBtn.classList.remove("visible");
+				}
+			};
+
+			window.addEventListener("scroll", toggleScrollBtn, { passive: true });
+			scrollBtn.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
+			toggleScrollBtn();
+
+			// Mobile Menu Toggle
+			const toggle = document.getElementById("navToggle");
+			const menu = document.getElementById("mobileMenu");
+			if (toggle && menu) {
+				toggle.addEventListener("click", () => {
+					const isOpen = !menu.classList.contains("hidden");
+					menu.classList.toggle("hidden");
+					toggle.setAttribute("aria-expanded", String(!isOpen));
+				});
+				// Close menu when a link is clicked
+				menu.querySelectorAll("a").forEach((link) => {
+					link.addEventListener("click", () => {
+						menu.classList.add("hidden");
+						toggle.setAttribute("aria-expanded", "false");
+					});
+				});
+			}
+
+			// Fetch AniList Data
+			async function fetchAniListData(username) {
+				const query = `
+      query ($name: String) {
+        User(name: $name) {
+        id
+        name
+        avatar {
+          large
+        }
+        siteUrl
+        statistics {
+          anime {
+          count
+          minutesWatched
+          episodesWatched
+          meanScore
+          }
+          manga {
+          count
+          chaptersRead
+          volumesRead
+          meanScore
+          }
+        }
+        favourites {
+          anime {
+          nodes {
+            title {
+            english
+            }
+            coverImage {
+            large
+            }
+            siteUrl
+          }
+          }
+        }
+        }
+      }`;
+
+				try {
+					const res = await fetch("https://graphql.anilist.co", {
+						method: "POST",
+						headers: { "Content-Type": "application/json", Accept: "application/json" },
+						body: JSON.stringify({ query, variables: { name: username } }),
+					});
+
+					const { data } = await res.json();
+					console.log("AniList Data:", data);
+
+					// Stats
+					document.getElementById("anilist-username").textContent = `@${data.User.name}`;
+					document.getElementById("anilist-profile").href = data.User.siteUrl;
+
+					document.getElementById("anime-count").textContent = data.User.statistics.anime.count;
+					document.getElementById("mean-score").textContent = data.User.statistics.anime.meanScore.toFixed(1);
+					document.getElementById("episodes-watched").textContent = data.User.statistics.anime.episodesWatched.toLocaleString();
+					document.getElementById("time-watched").textContent = data.User.statistics.anime.minutesWatched.toLocaleString() + " min";
+
+					// Favourites Gallery
+					const favContainer = document.getElementById("favourites-gallery");
+					favContainer.innerHTML = "";
+					favContainer.className = "flex gap-4 overflow-x-auto pb-2";
+					favContainer.style.webkitOverflowScrolling = "touch";
+
+					data.User.favourites.anime.nodes.forEach((anime) => {
+						const item = document.createElement("div");
+
+						item.className = "flex-shrink-0 w-32 sm:w-40 md:w-48";
+
+						item.innerHTML = `
+              <a href="${anime.siteUrl}" target="_blank" class="block rounded-lg overflow-hidden border border-white/10 hover:scale-105 transition">
+                <img src="${anime.coverImage.large}" alt="${anime.title.english}" class="w-full h-full object-cover rounded-lg border border-white/10 group-hover:opacity-90 transition" />
+                <div class="p-2 text-center text-sm font-medium truncate">${anime.title.english}</div>
+              </a>
+            `;
+
+						favContainer.appendChild(item);
+					});
+				} catch (err) {
+					console.error("Error Fetching AniList Data:", err);
+				}
+			}
+
+			fetchAniListData("xpsniket");
+		</script>
+	</body>
+</html>

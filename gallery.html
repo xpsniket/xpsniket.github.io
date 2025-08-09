@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1" />
+
+		<title>Sniket — Cinematographer</title>
+		<meta name="description" content="Atmospheric, cinematic stills & motion. Portrait, street, product & short-form video with refined color and clean delivery." />
+		<meta name="theme-color" content="#0a0b0f" />
+		<meta property="og:title" content="Sniket — Cinematographer & Photographer" />
+		<meta property="og:description" content="Atmospheric, cinematic stills & motion. Portrait, street, product & short-form video." />
+		<meta property="og:type" content="website" />
+		<meta property="og:image" content="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=1200&auto=format&fit=crop" />
+		<meta name="twitter:card" content="summary_large_image" />
+
+		<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300..800&display=swap" rel="stylesheet" />
+
+		<link rel="preload" as="image" href="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?q=80&w=1400&auto=format&fit=crop" imagesrcset="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=800 800w, https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=1400 1400w" />
+
+		<!-- Tailwind -->
+		<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+		<script src="https://cdn.tailwindcss.com"></script>
+		<script>
+			tailwind.config = {
+				darkMode: ["class", '[data-theme="dark"]'],
+				theme: {
+					extend: {
+						fontFamily: {
+							sans: ["Inter", "ui-sans-serif", "system-ui", "-apple-system", "Segoe UI", "Roboto", "Noto Sans", "Ubuntu", "Cantarell", "Helvetica Neue", "Arial"],
+						},
+						colors: {
+							base: {
+								bg: "var(--c-bg)",
+								surface: "var(--c-surface)",
+								sub: "var(--c-sub)",
+								text: "var(--c-text)",
+								accent: "var(--c-accent)",
+								accent2: "var(--c-accent2)",
+								outline: "var(--c-outline)",
+							},
+						},
+						boxShadow: {
+							soft: "0 1px 2px rgba(0,0,0,.2), 0 8px 24px rgba(0,0,0,.25)",
+							glow: "0 0 0 2px rgba(125,211,252,.18), 0 10px 30px rgba(0,0,0,.45)",
+							glass: "0 4px 24px -4px rgba(0,0,0,.45), 0 2px 4px rgba(0,0,0,.35)",
+						},
+						animation: {
+							"fade-in": "fadeIn .8s ease forwards",
+							"gradient-pan": "gradientPan 14s linear infinite",
+						},
+						keyframes: {
+							fadeIn: { from: { opacity: 0, transform: "translateY(12px)" }, to: { opacity: 1, transform: "translateY(0)" } },
+							gradientPan: {
+								"0%": { transform: "translate3d(0,0,0) scale(1)" },
+								"50%": { transform: "translate3d(4%,-3%,0) scale(1.04)" },
+								"100%": { transform: "translate3d(-2%,3%,0) scale(1.02)" },
+							},
+						},
+					},
+				},
+			};
+		</script>
+
+		<style>
+			:root {
+				--c-bg: #0a0b0f;
+				--c-surface: #10131a;
+				--c-text: #eef1f3;
+				--c-sub: #9aa1a9;
+				--c-accent: #7dd3fc;
+				--c-accent2: #a78bfa;
+				--c-outline: #1f2730;
+				--radius-xl: 1.25rem;
+			}
+
+			[data-theme="light"] {
+				--c-bg: #f5f7fb;
+				--c-surface: #ffffff;
+				--c-text: #101319;
+				--c-sub: #5b6570;
+				--c-accent: #0284c7;
+				--c-accent2: #6366f1;
+				--c-outline: #e2e8f0;
+			}
+
+			html {
+				scroll-behavior: smooth;
+			}
+
+			body {
+				min-height: 100%;
+			}
+
+			::selection {
+				background: #7dd3fc33;
+			}
+
+			.bg-wrap {
+				position: fixed;
+				inset: 0;
+				z-index: -1;
+				overflow: hidden;
+				mask: linear-gradient(to bottom, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.3) 60%, rgba(0, 0, 0, 0.9));
+			}
+
+			.gradient-mesh {
+				position: absolute;
+				inset: -30% -15%;
+				background: radial-gradient(40% 30% at 18% 22%, rgba(167, 139, 250, 0.28), transparent 60%), radial-gradient(45% 35% at 78% 30%, rgba(125, 211, 252, 0.3), transparent 65%), radial-gradient(55% 45% at 50% 75%, rgba(236, 72, 153, 0.16), transparent 70%);
+				filter: blur(60px) saturate(120%);
+				animation: gradientPan 32s ease-in-out infinite alternate;
+				opacity: 0.9;
+				mix-blend-mode: plus-lighter;
+			}
+
+			[data-theme="light"] .gradient-mesh {
+				filter: blur(70px) saturate(140%);
+				mix-blend-mode: normal;
+				opacity: 0.55;
+			}
+
+			/* Reveal */
+			.reveal {
+				opacity: 0;
+				transform: translateY(18px);
+				transition: opacity 0.9s cubic-bezier(0.4, 0.08, 0, 1), transform 0.9s cubic-bezier(0.4, 0.08, 0, 1);
+			}
+
+			.reveal.in-view {
+				opacity: 1;
+				transform: none;
+			}
+
+			/* Card polish / glass */
+			.glass {
+				background: linear-gradient(140deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.02));
+				-webkit-backdrop-filter: blur(18px) saturate(140%);
+				backdrop-filter: blur(18px) saturate(140%);
+				border: 1px solid var(--c-outline);
+			}
+
+			[data-theme="light"] .glass {
+				background: linear-gradient(140deg, rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.65));
+			}
+
+			.card-hover {
+				position: relative;
+				transition: transform 0.55s cubic-bezier(0.22, 1, 0.26, 1), box-shadow 0.55s ease, opacity 0.35s ease;
+			}
+
+			.card-hover:hover {
+				transform: translateY(-4px) scale(1.012);
+				box-shadow: 0 12px 40px -10px rgba(0, 0, 0, 0.55);
+			}
+
+			[data-theme="light"] .card-hover:hover {
+				box-shadow: 0 18px 38px -12px rgba(0, 0, 0, 0.15);
+			}
+
+			/* Gallery overlay */
+			.gallery-figure {
+				overflow: hidden;
+			}
+
+			.gallery-figure img {
+				transition: transform 1s ease, filter 0.8s ease;
+			}
+
+			.gallery-figure:hover img {
+				transform: scale(1.06);
+				filter: brightness(1.08) saturate(1.1);
+			}
+
+			.gallery-figure .overlay {
+				position: absolute;
+				inset: 0;
+				background: linear-gradient(to top, rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0));
+				opacity: 0;
+				display: flex;
+				align-items: flex-end;
+				padding: 1rem;
+				transition: opacity 0.45s ease;
+			}
+
+			.gallery-figure:hover .overlay {
+				opacity: 1;
+			}
+
+			/* Lightbox */
+			.lightbox {
+				position: fixed;
+				inset: 0;
+				display: none;
+				place-items: center;
+				background: rgba(6, 8, 11, 0.9);
+				z-index: 80;
+			}
+
+			.lightbox.open {
+				display: grid;
+				animation: fadeIn 0.25s ease;
+			}
+
+			.lightbox img {
+				max-width: min(94vw, 1500px);
+				max-height: 84vh;
+				border-radius: 1.25rem;
+				box-shadow: 0 24px 68px -10px rgba(0, 0, 0, 0.65);
+			}
+
+			.lb-nav {
+				position: absolute;
+				inset: 0;
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+				pointer-events: none;
+			}
+
+			.lb-btn {
+				pointer-events: auto;
+				width: 3rem;
+				height: 3rem;
+				display: grid;
+				place-items: center;
+				border-radius: 9999px;
+				background: rgba(255, 255, 255, 0.06);
+				border: 1px solid rgba(255, 255, 255, 0.12);
+				backdrop-filter: blur(8px);
+				transition: background 0.3s ease;
+			}
+
+			.lb-btn:hover {
+				background: rgba(255, 255, 255, 0.12);
+			}
+
+			/* Skip link */
+			.skip-link {
+				position: fixed;
+				left: 50%;
+				top: 0.75rem;
+				transform: translate(-50%, -150%);
+				background: var(--c-surface);
+				color: var(--c-text);
+				padding: 0.65rem 1rem;
+				border-radius: 999px;
+				font-size: 0.85rem;
+				border: 1px solid var(--c-outline);
+				z-index: 100;
+				transition: transform 0.4s ease;
+			}
+
+			.skip-link:focus {
+				transform: translate(-50%, 0);
+				outline: 2px solid var(--c-accent);
+			}
+
+			/* Floating back-to-top */
+			#scrollTopBtn {
+				position: fixed;
+				right: 1.1rem;
+				bottom: 1.2rem;
+				z-index: 70;
+				opacity: 0;
+				transform: translateY(14px) scale(0.9);
+				transition: opacity 0.4s ease, transform 0.5s ease;
+			}
+
+			#scrollTopBtn.visible {
+				opacity: 1;
+				transform: translateY(0) scale(1);
+			}
+
+			/* Minimal scrollbar */
+			::-webkit-scrollbar {
+				width: 10px;
+			}
+
+			::-webkit-scrollbar-track {
+				background: transparent;
+			}
+
+			::-webkit-scrollbar-thumb {
+				background: linear-gradient(var(--c-accent), var(--c-accent2));
+				border-radius: 20px;
+				border: 2px solid var(--c-bg);
+			}
+
+			[data-theme="light"] ::-webkit-scrollbar-thumb {
+				background: linear-gradient(var(--c-accent2), var(--c-accent));
+			}
+
+			@media (prefers-reduced-motion: reduce) {
+				* {
+					animation-duration: 0.001s !important;
+					transition: none !important;
+				}
+
+				.gradient-mesh {
+					animation: none;
+				}
+			}
+		</style>
+		<script type="application/ld+json">
+			{
+				"@context": "https://schema.org",
+				"@type": "Person",
+				"name": "Sniket",
+				"jobTitle": "Cinematographer & Photographer",
+				"sameAs": ["https://instagram.com/xpsniket", "https://www.linkedin.com/in/xpsniket", "https://github.com/xpsniket"],
+				"url": "xpsniket.github.io"
+			}
+		</script>
+	</head>
+
+	<body class="bg-base-bg text-base-text font-sans antialiased relative" data-theme="dark">
+		<div class="bg-wrap" aria-hidden="true">
+			<div class="gradient-mesh"></div>
+		</div>
+
+		<!-- Header -->
+		<header class="sticky top-0 z-40 backdrop-blur supports-[backdrop-filter]:bg-base-bg/95 bg-black/80 border-b border-white/5 sm:bg-black/40">
+			<div class="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex items-center gap-6">
+				<!-- Mobile Menu Button -->
+				<button id="navToggle" class="sm:hidden inline-flex items-center justify-center rounded-md p-2 text-white/70 hover:text-white hover:bg-white/10 transition ml-2" aria-label="Open Menu" aria-expanded="false">
+					<svg xmlns="http://www.w3.org/2000/svg" class="size-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+					</svg>
+				</button>
+
+				<a href="#top" class="text-base-text tracking-wide hover:text-base-accent transition-colors text-lg">SNIKET</a>
+				<nav class="hidden sm:flex items-center gap-6 text-base-sub">
+					<a class="hover:text-base-text transition" href="#work">Photography</a>
+					<a class="hover:text-base-text transition" href="#tools">Tools</a>
+					<a class="hover:text-base-text transition" href="#about">About</a>
+					<a class="hover:text-base-text transition" href="#contact">Contact</a>
+				</nav>
+
+				<!-- Mobile Menu -->
+				<div id="mobileMenu" class="hidden sm:hidden absolute left-0 right-0 top-full border-b border-white/5 bg-black/80 backdrop-blur supports-[backdrop-filter]:bg-base-bg/95">
+					<div class="mx-auto max-w-7xl px-4 py-3 sm:px-6 lg:px-8">
+						<ul class="grid gap-2">
+							<li><a href="#about" class="block rounded-md px-3 py-2 text-sm font-semibold text-white/80 hover:text-white hover:bg-white/10 transition">About</a></li>
+							<li><a href="#projects" class="block rounded-md px-3 py-2 text-sm font-semibold text-white/80 hover:text-white hover:bg-white/10 transition">Projects</a></li>
+							<li><a href="#skills" class="block rounded-md px-3 py-2 text-sm font-semibold text-white/80 hover:text-white hover:bg-white/10 transition">Skills</a></li>
+							<li><a href="#github" class="block rounded-md px-3 py-2 text-sm font-semibold text-white/80 hover:text-white hover:bg-white/10 transition">GitHub</a></li>
+							<li><a href="#contact" class="block rounded-md px-3 py-2 text-sm font-semibold text-white/80 hover:text-white hover:bg-white/10 transition">Contact</a></li>
+						</ul>
+					</div>
+				</div>
+
+				<div class="ml-auto flex items-center gap-3">
+					<a href="https://discordapp.com/users/766877676010471454" class="ml-4 inline-flex items-center gap-2 rounded-full border border-white/10 px-4 py-2 text-sm text-base-text hover:bg-white/5 transition">
+						<span>Let’s talk</span>
+					</a>
+				</div>
+			</div>
+		</header>
+
+		<main class="flex-1 w-full flex flex-col items-center justify-center py-12">
+			<section class="w-full sm:max-w-6xl lg:max-w-[80%] px-4">
+				<div class="mb-10 flex items-center justify-between">
+					<h1 class="text-3xl sm:text-5xl font-bold tracking-tight mb-2">Gallery</h1>
+					<a href="/index.html" class="inline-flex items-center gap-2 rounded-full bg-base-text text-base-bg px-6 py-3 text-sm font-medium hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-base-accent/50 transition shadow-glow">
+						<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-house-icon lucide-house">
+							<path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8" />
+							<path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+						</svg>
+						<span>Home</span>
+					</a>
+				</div>
+				<div id="galleryGrid" class="grid grid-cols-3 gap-5">
+					<!-- Images To Be Rendered Here -->
+				</div>
+			</section>
+		</main>
+
+		<!-- Footer -->
+		<footer class="border-t border-white/5 py-10">
+			<div class="max-w-7xl mx-auto px-4 sm:px-6 flex flex-col items-center justify-center gap-2 text-base-sub text-md">
+				<p>© <span id="year"></span> • Made With ❤ By SNIKET</p>
+				<p class="text-xl font-semibold tracking-wide mt-1">Be Creative Stay Creative</p>
+			</div>
+		</footer>
+
+		<!-- Floating Scroll To Top -->
+		<button id="scrollTopBtn" aria-label="Scroll to top" class="rounded-full bg-base-text text-base-bg w-11 h-11 grid place-items-center shadow-glow hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-base-accent/40 transition">
+			<svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
+				<path d="M12 19V5m0 0-6 6m6-6 6 6" />
+			</svg>
+		</button>
+
+		<!-- Lightbox -->
+		<div id="lightbox" class="lightbox" role="dialog" aria-modal="true" aria-label="Image preview">
+			<button id="lightboxClose" class="absolute top-5 right-5 rounded-full border border-white/20 bg-white/10 px-4 py-2 text-xs font-medium text-base-text hover:bg-white/15 transition">Close</button>
+			<img id="lightboxImg" alt="Expanded gallery image" />
+		</div>
+
+		<script>
+			// Get Current Year
+			document.getElementById("year").textContent = new Date().getFullYear();
+
+			const IMAGE_DATA = [
+				{
+					id: "portrait-macro",
+					src: "images/DOC-20250809-WA0027_.jpg",
+					caption: "Natural light portrait",
+				},
+				{
+					id: "street-night",
+					src: "images/1724753315832.jpg",
+					caption: "Night street reflections",
+				},
+				{
+					id: "street-night",
+					src: "images/DOC-20250809-WA0002_.jpg",
+					caption: "Night street reflections",
+				},
+				{
+					id: "street-night",
+					src: "images/DOC-20250809-WA0005_.jpg",
+					caption: "Night street reflections",
+				},
+				{
+					id: "street-night",
+					src: "images/DOC-20250809-WA0006_.jpg",
+					caption: "Night street reflections",
+				},
+				{
+					id: "street-night",
+					src: "images/DOC-20250809-WA0007_.jpg",
+					caption: "Night street reflections",
+				},
+				{
+					id: "street-night",
+					src: "images/DOC-20250809-WA0009_.jpg",
+					caption: "Night street reflections",
+				},
+				{
+					id: "street-night",
+					src: "images/DOC-20250809-WA0010_.jpg",
+					caption: "Night street reflections",
+				},
+				{
+					id: "street-night",
+					src: "images/DOC-20250809-WA0011_.jpg",
+					caption: "Night street reflections",
+				},
+				{
+					id: "street-night",
+					src: "images/DOC-20250809-WA0012_.jpg",
+					caption: "Night street reflections",
+				},
+				{
+					id: "street-night",
+					src: "images/DOC-20250809-WA0013_.jpg",
+					caption: "Night street reflections",
+				},
+				{
+					id: "street-night",
+					src: "images/DOC-20250809-WA0014_.jpg",
+					caption: "Night street reflections",
+				},
+				{
+					id: "street-night",
+					src: "images/DOC-20250809-WA0015_.jpg",
+					caption: "Night street reflections",
+				},
+				{
+					id: "street-night",
+					src: "images/DOC-20250809-WA0016_.jpg",
+					caption: "Night street reflections",
+				},
+				{
+					id: "street-night",
+					src: "images/DOC-20250809-WA0017_.jpg",
+					caption: "Night street reflections",
+				},
+				{
+					id: "street-night",
+					src: "images/DOC-20250809-WA0018_.jpg",
+					caption: "Night street reflections",
+				},
+				{
+					id: "street-night",
+					src: "images/DOC-20250809-WA0019_.jpg",
+					caption: "Night street reflections",
+				},
+				{
+					id: "street-night",
+					src: "images/DOC-20250809-WA0020_.jpg",
+					caption: "Night street reflections",
+				},
+				{
+					id: "street-night",
+					src: "images/DOC-20250809-WA0021_.jpg",
+					caption: "Night street reflections",
+				},
+				{
+					id: "street-night",
+					src: "images/DOC-20250809-WA0022_.jpg",
+					caption: "Night street reflections",
+				},
+				{
+					id: "street-night",
+					src: "images/DOC-20250809-WA0023_.jpg",
+					caption: "Night street reflections",
+				},
+				{
+					id: "street-night",
+					src: "images/DOC-20250809-WA0025_.jpg",
+					caption: "Night street reflections",
+				},
+				{
+					id: "street-night",
+					src: "images/DOC-20250809-WA0026_.jpg",
+					caption: "Night street reflections",
+				},
+				{
+					id: "street-night",
+					src: "images/DOC-20250809-WA0028_.jpg",
+					caption: "Night street reflections",
+				},
+				{
+					id: "street-night",
+					src: "images/IMG_20231030_163512_1.jpg",
+					caption: "Night street reflections",
+				},
+				{
+					id: "street-night",
+					src: "images/IMG_20240625_180812.jpg",
+					caption: "Night street reflections",
+				},
+				{
+					id: "street-night",
+					src: "images/IMG20221019165758.jpg",
+					caption: "Night street reflections",
+				},
+			];
+
+			const galleryGrid = document.getElementById("galleryGrid");
+
+			let currentIdx = 0;
+
+			IMAGE_DATA.forEach((img, idx) => {
+				const fig = document.createElement("figure");
+
+				fig.className = "relative overflow-hidden rounded-xl shadow-lg bg-neutral-900 group cursor-pointer aspect-[4/3] flex items-center justify-center";
+				fig.tabIndex = 0;
+
+				fig.setAttribute("aria-label", img.caption || "Image");
+
+				const image = document.createElement("img");
+				image.src = img.src;
+				image.alt = img.caption || "";
+
+				image.className = "object-cover w-full h-full transition-transform duration-700 group-hover:scale-105 group-hover:brightness-110";
+				image.loading = "lazy";
+
+				if (img.caption) {
+					const overlay = document.createElement("figcaption");
+					overlay.className = "absolute bottom-0 left-0 w-full bg-gradient-to-t from-black/70 to-transparent text-white text-xs sm:text-sm px-4 py-2 opacity-0 group-hover:opacity-100 transition-opacity duration-500";
+					overlay.textContent = img.caption;
+					fig.appendChild(overlay);
+				}
+
+				fig.appendChild(image);
+				galleryGrid.appendChild(fig);
+
+				fig.addEventListener("click", () => openLightbox(idx));
+				fig.addEventListener("keydown", (e) => {
+					if (e.key === "Enter" || e.key === " ") openLightbox(idx);
+				});
+			});
+
+			const lightbox = document.getElementById("lightbox");
+			const lightboxImg = document.getElementById("lightboxImg");
+			const lightboxClose = document.getElementById("lightboxClose");
+
+			const lbNav = document.createElement("div");
+			lbNav.className = "lb-nav";
+
+			const prevBtn = document.createElement("button");
+			prevBtn.className = "lb-btn ml-2";
+			prevBtn.innerHTML = '<svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>';
+			prevBtn.setAttribute("aria-label", "Previous image");
+
+			const nextBtn = document.createElement("button");
+			nextBtn.className = "lb-btn mr-2";
+			nextBtn.innerHTML = '<svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>';
+			nextBtn.setAttribute("aria-label", "Next image");
+
+			lbNav.appendChild(prevBtn);
+			lbNav.appendChild(nextBtn);
+			lightbox.appendChild(lbNav);
+
+			function showLightboxImage(idx) {
+				currentIdx = idx;
+				const img = IMAGE_DATA[idx];
+				lightboxImg.src = img.src;
+				lightboxImg.alt = img.caption || "";
+			}
+
+			function openLightbox(idx) {
+				showLightboxImage(idx);
+				lightbox.classList.add("open");
+
+				setTimeout(() => {
+					lightboxClose.focus();
+				}, 100);
+			}
+
+			function closeLb() {
+				lightbox.classList.remove("open");
+			}
+
+			function showNext() {
+				let nextIdx = (currentIdx + 1) % IMAGE_DATA.length;
+				showLightboxImage(nextIdx);
+			}
+
+			function showPrev() {
+				let prevIdx = (currentIdx - 1 + IMAGE_DATA.length) % IMAGE_DATA.length;
+				showLightboxImage(prevIdx);
+			}
+
+			nextBtn.addEventListener("click", (e) => {
+				e.stopPropagation();
+				showNext();
+			});
+			prevBtn.addEventListener("click", (e) => {
+				e.stopPropagation();
+				showPrev();
+			});
+
+			lightboxClose.addEventListener("click", closeLb);
+			lightbox.addEventListener("click", (e) => {
+				if (e.target === lightbox) closeLb();
+			});
+
+			window.addEventListener("keydown", (e) => {
+				if (!lightbox.classList.contains("open")) return;
+				if (e.key === "Escape") closeLb();
+				if (e.key === "ArrowRight") showNext();
+				if (e.key === "ArrowLeft") showPrev();
+			});
+
+			// Scroll To Top Button
+			const scrollBtn = document.getElementById("scrollTopBtn");
+			if (scrollBtn) {
+				const toggleScrollBtn = () => {
+					if (window.scrollY > 600) {
+						scrollBtn.classList.add("visible");
+					} else {
+						scrollBtn.classList.remove("visible");
+					}
+				};
+				window.addEventListener("scroll", toggleScrollBtn, { passive: true });
+				scrollBtn.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
+				toggleScrollBtn();
+			}
+
+			// Mobile Menu Toggle
+			const toggle = document.getElementById("navToggle");
+			const menu = document.getElementById("mobileMenu");
+			if (toggle && menu) {
+				toggle.addEventListener("click", () => {
+					const isOpen = !menu.classList.contains("hidden");
+					menu.classList.toggle("hidden");
+					toggle.setAttribute("aria-expanded", String(!isOpen));
+				});
+				// Close menu when a link is clicked
+				menu.querySelectorAll("a").forEach((link) => {
+					link.addEventListener("click", () => {
+						menu.classList.add("hidden");
+						toggle.setAttribute("aria-expanded", "false");
+					});
+				});
+			}
+		</script>
+	</body>
+</html>
