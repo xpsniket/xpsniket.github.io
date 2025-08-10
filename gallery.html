@@ -159,33 +159,36 @@
 				box-shadow: 0 18px 38px -12px rgba(0, 0, 0, 0.15);
 			}
 
-			/* Gallery overlay */
+			.masonry {
+				column-count: 3; /* desktop */
+				column-gap: 1.25rem; /* matches gap-5 */
+			}
+
+			@media (max-width: 1024px) {
+				.masonry {
+					column-count: 2;
+				}
+			}
+
+			@media (max-width: 640px) {
+				.masonry {
+					column-count: 1;
+				}
+			}
+
 			.gallery-figure {
-				overflow: hidden;
+				display: inline-block;
+				width: 100%;
+				margin-bottom: 1.25rem; /* matches gap-5 */
+				position: relative;
+				break-inside: avoid;
 			}
 
 			.gallery-figure img {
-				transition: transform 1s ease, filter 0.8s ease;
-			}
-
-			.gallery-figure:hover img {
-				transform: scale(1.06);
-				filter: brightness(1.08) saturate(1.1);
-			}
-
-			.gallery-figure .overlay {
-				position: absolute;
-				inset: 0;
-				background: linear-gradient(to top, rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0));
-				opacity: 0;
-				display: flex;
-				align-items: flex-end;
-				padding: 1rem;
-				transition: opacity 0.45s ease;
-			}
-
-			.gallery-figure:hover .overlay {
-				opacity: 1;
+				width: 100%;
+				height: auto; /* keeps aspect ratio */
+				display: block;
+				border-radius: 0.5rem; /* optional styling */
 			}
 
 			/* Lightbox */
@@ -371,8 +374,115 @@
 						<span>Home</span>
 					</a>
 				</div>
-				<div id="galleryGrid" class="grid grid-cols-3 gap-5">
-					<!-- Images To Be Rendered Here -->
+				<div id="galleryGrid" class="masonry">
+					<figure class="gallery-figure gallery-img" tabindex="0" aria-label="Natural light portrait">
+						<img src="images/DOC-20250809-WA0027_.jpg" alt="Natural light portrait" class="object-cover w-full h-full" loading="lazy" />
+						<figcaption class="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black/70 to-transparent text-white text-xs sm:text-sm px-4 py-2 opacity-0 group-hover:opacity-100 transition-opacity duration-500">Natural light portrait</figcaption>
+					</figure>
+					<figure class="gallery-figure gallery-img" tabindex="0" aria-label="Night street reflections">
+						<img src="images/1724753315832.jpg" alt="Night street reflections" class="object-cover w-full h-full" loading="lazy" />
+						<figcaption class="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black/70 to-transparent text-white text-xs sm:text-sm px-4 py-2 opacity-0 group-hover:opacity-100 transition-opacity duration-500">Night street reflections</figcaption>
+					</figure>
+					<figure class="gallery-figure gallery-img" tabindex="0" aria-label="Night street reflections">
+						<img src="images/DOC-20250809-WA0002_.jpg" alt="Night street reflections" class="object-cover w-full h-full" loading="lazy" />
+						<figcaption class="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black/70 to-transparent text-white text-xs sm:text-sm px-4 py-2 opacity-0 group-hover:opacity-100 transition-opacity duration-500">Night street reflections</figcaption>
+					</figure>
+					<figure class="gallery-figure gallery-img" tabindex="0" aria-label="Night street reflections">
+						<img src="images/DOC-20250809-WA0005_.jpg" alt="Night street reflections" class="object-cover w-full h-full" loading="lazy" />
+						<figcaption class="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black/70 to-transparent text-white text-xs sm:text-sm px-4 py-2 opacity-0 group-hover:opacity-100 transition-opacity duration-500">Night street reflections</figcaption>
+					</figure>
+					<figure class="gallery-figure gallery-img" tabindex="0" aria-label="Night street reflections">
+						<img src="images/DOC-20250809-WA0006_.jpg" alt="Night street reflections" class="object-cover w-full h-full" loading="lazy" />
+						<figcaption class="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black/70 to-transparent text-white text-xs sm:text-sm px-4 py-2 opacity-0 group-hover:opacity-100 transition-opacity duration-500">Night street reflections</figcaption>
+					</figure>
+					<figure class="gallery-figure gallery-img" tabindex="0" aria-label="Night street reflections">
+						<img src="images/DOC-20250809-WA0007_.jpg" alt="Night street reflections" class="object-cover w-full h-full" loading="lazy" />
+						<figcaption class="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black/70 to-transparent text-white text-xs sm:text-sm px-4 py-2 opacity-0 group-hover:opacity-100 transition-opacity duration-500">Night street reflections</figcaption>
+					</figure>
+					<figure class="gallery-figure gallery-img" tabindex="0" aria-label="Night street reflections">
+						<img src="images/DOC-20250809-WA0009_.jpg" alt="Night street reflections" class="object-cover w-full h-full" loading="lazy" />
+						<figcaption class="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black/70 to-transparent text-white text-xs sm:text-sm px-4 py-2 opacity-0 group-hover:opacity-100 transition-opacity duration-500">Night street reflections</figcaption>
+					</figure>
+					<figure class="gallery-figure gallery-img" tabindex="0" aria-label="Night street reflections">
+						<img src="images/DOC-20250809-WA0010_.jpg" alt="Night street reflections" class="object-cover w-full h-full" loading="lazy" />
+						<figcaption class="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black/70 to-transparent text-white text-xs sm:text-sm px-4 py-2 opacity-0 group-hover:opacity-100 transition-opacity duration-500">Night street reflections</figcaption>
+					</figure>
+					<figure class="gallery-figure gallery-img" tabindex="0" aria-label="Night street reflections">
+						<img src="images/DOC-20250809-WA0011_.jpg" alt="Night street reflections" class="object-cover w-full h-full" loading="lazy" />
+						<figcaption class="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black/70 to-transparent text-white text-xs sm:text-sm px-4 py-2 opacity-0 group-hover:opacity-100 transition-opacity duration-500">Night street reflections</figcaption>
+					</figure>
+					<figure class="gallery-figure gallery-img" tabindex="0" aria-label="Night street reflections">
+						<img src="images/DOC-20250809-WA0012_.jpg" alt="Night street reflections" class="object-cover w-full h-full" loading="lazy" />
+						<figcaption class="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black/70 to-transparent text-white text-xs sm:text-sm px-4 py-2 opacity-0 group-hover:opacity-100 transition-opacity duration-500">Night street reflections</figcaption>
+					</figure>
+					<figure class="gallery-figure gallery-img" tabindex="0" aria-label="Night street reflections">
+						<img src="images/DOC-20250809-WA0013_.jpg" alt="Night street reflections" class="object-cover w-full h-full" loading="lazy" />
+						<figcaption class="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black/70 to-transparent text-white text-xs sm:text-sm px-4 py-2 opacity-0 group-hover:opacity-100 transition-opacity duration-500">Night street reflections</figcaption>
+					</figure>
+					<figure class="gallery-figure gallery-img" tabindex="0" aria-label="Night street reflections">
+						<img src="images/DOC-20250809-WA0014_.jpg" alt="Night street reflections" class="object-cover w-full h-full" loading="lazy" />
+						<figcaption class="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black/70 to-transparent text-white text-xs sm:text-sm px-4 py-2 opacity-0 group-hover:opacity-100 transition-opacity duration-500">Night street reflections</figcaption>
+					</figure>
+					<figure class="gallery-figure gallery-img" tabindex="0" aria-label="Night street reflections">
+						<img src="images/DOC-20250809-WA0015_.jpg" alt="Night street reflections" class="object-cover w-full h-full" loading="lazy" />
+						<figcaption class="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black/70 to-transparent text-white text-xs sm:text-sm px-4 py-2 opacity-0 group-hover:opacity-100 transition-opacity duration-500">Night street reflections</figcaption>
+					</figure>
+					<figure class="gallery-figure gallery-img" tabindex="0" aria-label="Night street reflections">
+						<img src="images/DOC-20250809-WA0016_.jpg" alt="Night street reflections" class="object-cover w-full h-full" loading="lazy" />
+						<figcaption class="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black/70 to-transparent text-white text-xs sm:text-sm px-4 py-2 opacity-0 group-hover:opacity-100 transition-opacity duration-500">Night street reflections</figcaption>
+					</figure>
+					<figure class="gallery-figure gallery-img" tabindex="0" aria-label="Night street reflections">
+						<img src="images/DOC-20250809-WA0017_.jpg" alt="Night street reflections" class="object-cover w-full h-full" loading="lazy" />
+						<figcaption class="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black/70 to-transparent text-white text-xs sm:text-sm px-4 py-2 opacity-0 group-hover:opacity-100 transition-opacity duration-500">Night street reflections</figcaption>
+					</figure>
+					<figure class="gallery-figure gallery-img" tabindex="0" aria-label="Night street reflections">
+						<img src="images/DOC-20250809-WA0018_.jpg" alt="Night street reflections" class="object-cover w-full h-full" loading="lazy" />
+						<figcaption class="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black/70 to-transparent text-white text-xs sm:text-sm px-4 py-2 opacity-0 group-hover:opacity-100 transition-opacity duration-500">Night street reflections</figcaption>
+					</figure>
+					<figure class="gallery-figure gallery-img" tabindex="0" aria-label="Night street reflections">
+						<img src="images/DOC-20250809-WA0019_.jpg" alt="Night street reflections" class="object-cover w-full h-full" loading="lazy" />
+						<figcaption class="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black/70 to-transparent text-white text-xs sm:text-sm px-4 py-2 opacity-0 group-hover:opacity-100 transition-opacity duration-500">Night street reflections</figcaption>
+					</figure>
+					<figure class="gallery-figure gallery-img" tabindex="0" aria-label="Night street reflections">
+						<img src="images/DOC-20250809-WA0020_.jpg" alt="Night street reflections" class="object-cover w-full h-full" loading="lazy" />
+						<figcaption class="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black/70 to-transparent text-white text-xs sm:text-sm px-4 py-2 opacity-0 group-hover:opacity-100 transition-opacity duration-500">Night street reflections</figcaption>
+					</figure>
+					<figure class="gallery-figure gallery-img" tabindex="0" aria-label="Night street reflections">
+						<img src="images/DOC-20250809-WA0021_.jpg" alt="Night street reflections" class="object-cover w-full h-full" loading="lazy" />
+						<figcaption class="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black/70 to-transparent text-white text-xs sm:text-sm px-4 py-2 opacity-0 group-hover:opacity-100 transition-opacity duration-500">Night street reflections</figcaption>
+					</figure>
+					<figure class="gallery-figure gallery-img" tabindex="0" aria-label="Night street reflections">
+						<img src="images/DOC-20250809-WA0022_.jpg" alt="Night street reflections" class="object-cover w-full h-full" loading="lazy" />
+						<figcaption class="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black/70 to-transparent text-white text-xs sm:text-sm px-4 py-2 opacity-0 group-hover:opacity-100 transition-opacity duration-500">Night street reflections</figcaption>
+					</figure>
+					<figure class="gallery-figure gallery-img" tabindex="0" aria-label="Night street reflections">
+						<img src="images/DOC-20250809-WA0023_.jpg" alt="Night street reflections" class="object-cover w-full h-full" loading="lazy" />
+						<figcaption class="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black/70 to-transparent text-white text-xs sm:text-sm px-4 py-2 opacity-0 group-hover:opacity-100 transition-opacity duration-500">Night street reflections</figcaption>
+					</figure>
+					<figure class="gallery-figure gallery-img" tabindex="0" aria-label="Night street reflections">
+						<img src="images/DOC-20250809-WA0025_.jpg" alt="Night street reflections" class="object-cover w-full h-full" loading="lazy" />
+						<figcaption class="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black/70 to-transparent text-white text-xs sm:text-sm px-4 py-2 opacity-0 group-hover:opacity-100 transition-opacity duration-500">Night street reflections</figcaption>
+					</figure>
+					<figure class="gallery-figure gallery-img" tabindex="0" aria-label="Night street reflections">
+						<img src="images/DOC-20250809-WA0026_.jpg" alt="Night street reflections" class="object-cover w-full h-full" loading="lazy" />
+						<figcaption class="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black/70 to-transparent text-white text-xs sm:text-sm px-4 py-2 opacity-0 group-hover:opacity-100 transition-opacity duration-500">Night street reflections</figcaption>
+					</figure>
+					<figure class="gallery-figure gallery-img" tabindex="0" aria-label="Night street reflections">
+						<img src="images/DOC-20250809-WA0028_.jpg" alt="Night street reflections" class="object-cover w-full h-full" loading="lazy" />
+						<figcaption class="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black/70 to-transparent text-white text-xs sm:text-sm px-4 py-2 opacity-0 group-hover:opacity-100 transition-opacity duration-500">Night street reflections</figcaption>
+					</figure>
+					<figure class="gallery-figure gallery-img" tabindex="0" aria-label="Night street reflections">
+						<img src="images/IMG_20231030_163512_1.jpg" alt="Night street reflections" class="object-cover w-full h-full" loading="lazy" />
+						<figcaption class="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black/70 to-transparent text-white text-xs sm:text-sm px-4 py-2 opacity-0 group-hover:opacity-100 transition-opacity duration-500">Night street reflections</figcaption>
+					</figure>
+					<figure class="gallery-figure gallery-img" tabindex="0" aria-label="Night street reflections">
+						<img src="images/IMG_20240625_180812.jpg" alt="Night street reflections" class="object-cover w-full h-full" loading="lazy" />
+						<figcaption class="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black/70 to-transparent text-white text-xs sm:text-sm px-4 py-2 opacity-0 group-hover:opacity-100 transition-opacity duration-500">Night street reflections</figcaption>
+					</figure>
+					<figure class="gallery-figure gallery-img" tabindex="0" aria-label="Night street reflections">
+						<img src="images/IMG20221019165758.jpg" alt="Night street reflections" class="object-cover w-full h-full" loading="lazy" />
+						<figcaption class="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black/70 to-transparent text-white text-xs sm:text-sm px-4 py-2 opacity-0 group-hover:opacity-100 transition-opacity duration-500">Night street reflections</figcaption>
+					</figure>
 				</div>
 			</section>
 		</main>
@@ -402,211 +512,45 @@
 			// Get Current Year
 			document.getElementById("year").textContent = new Date().getFullYear();
 
-			const IMAGE_DATA = [
-				{
-					id: "portrait-macro",
-					src: "images/DOC-20250809-WA0027_.jpg",
-					caption: "Natural light portrait",
-				},
-				{
-					id: "street-night",
-					src: "images/1724753315832.jpg",
-					caption: "Night street reflections",
-				},
-				{
-					id: "street-night",
-					src: "images/DOC-20250809-WA0002_.jpg",
-					caption: "Night street reflections",
-				},
-				{
-					id: "street-night",
-					src: "images/DOC-20250809-WA0005_.jpg",
-					caption: "Night street reflections",
-				},
-				{
-					id: "street-night",
-					src: "images/DOC-20250809-WA0006_.jpg",
-					caption: "Night street reflections",
-				},
-				{
-					id: "street-night",
-					src: "images/DOC-20250809-WA0007_.jpg",
-					caption: "Night street reflections",
-				},
-				{
-					id: "street-night",
-					src: "images/DOC-20250809-WA0009_.jpg",
-					caption: "Night street reflections",
-				},
-				{
-					id: "street-night",
-					src: "images/DOC-20250809-WA0010_.jpg",
-					caption: "Night street reflections",
-				},
-				{
-					id: "street-night",
-					src: "images/DOC-20250809-WA0011_.jpg",
-					caption: "Night street reflections",
-				},
-				{
-					id: "street-night",
-					src: "images/DOC-20250809-WA0012_.jpg",
-					caption: "Night street reflections",
-				},
-				{
-					id: "street-night",
-					src: "images/DOC-20250809-WA0013_.jpg",
-					caption: "Night street reflections",
-				},
-				{
-					id: "street-night",
-					src: "images/DOC-20250809-WA0014_.jpg",
-					caption: "Night street reflections",
-				},
-				{
-					id: "street-night",
-					src: "images/DOC-20250809-WA0015_.jpg",
-					caption: "Night street reflections",
-				},
-				{
-					id: "street-night",
-					src: "images/DOC-20250809-WA0016_.jpg",
-					caption: "Night street reflections",
-				},
-				{
-					id: "street-night",
-					src: "images/DOC-20250809-WA0017_.jpg",
-					caption: "Night street reflections",
-				},
-				{
-					id: "street-night",
-					src: "images/DOC-20250809-WA0018_.jpg",
-					caption: "Night street reflections",
-				},
-				{
-					id: "street-night",
-					src: "images/DOC-20250809-WA0019_.jpg",
-					caption: "Night street reflections",
-				},
-				{
-					id: "street-night",
-					src: "images/DOC-20250809-WA0020_.jpg",
-					caption: "Night street reflections",
-				},
-				{
-					id: "street-night",
-					src: "images/DOC-20250809-WA0021_.jpg",
-					caption: "Night street reflections",
-				},
-				{
-					id: "street-night",
-					src: "images/DOC-20250809-WA0022_.jpg",
-					caption: "Night street reflections",
-				},
-				{
-					id: "street-night",
-					src: "images/DOC-20250809-WA0023_.jpg",
-					caption: "Night street reflections",
-				},
-				{
-					id: "street-night",
-					src: "images/DOC-20250809-WA0025_.jpg",
-					caption: "Night street reflections",
-				},
-				{
-					id: "street-night",
-					src: "images/DOC-20250809-WA0026_.jpg",
-					caption: "Night street reflections",
-				},
-				{
-					id: "street-night",
-					src: "images/DOC-20250809-WA0028_.jpg",
-					caption: "Night street reflections",
-				},
-				{
-					id: "street-night",
-					src: "images/IMG_20231030_163512_1.jpg",
-					caption: "Night street reflections",
-				},
-				{
-					id: "street-night",
-					src: "images/IMG_20240625_180812.jpg",
-					caption: "Night street reflections",
-				},
-				{
-					id: "street-night",
-					src: "images/IMG20221019165758.jpg",
-					caption: "Night street reflections",
-				},
-			];
-
-			const galleryGrid = document.getElementById("galleryGrid");
-
-			let currentIdx = 0;
-
-			IMAGE_DATA.forEach((img, idx) => {
-				const fig = document.createElement("figure");
-
-				fig.className = "relative overflow-hidden rounded-xl shadow-lg bg-neutral-900 group cursor-pointer aspect-[4/3] flex items-center justify-center";
-				fig.tabIndex = 0;
-
-				fig.setAttribute("aria-label", img.caption || "Image");
-
-				const image = document.createElement("img");
-				image.src = img.src;
-				image.alt = img.caption || "";
-
-				image.className = "object-cover w-full h-full transition-transform duration-700 group-hover:scale-105 group-hover:brightness-110";
-				image.loading = "lazy";
-
-				if (img.caption) {
-					const overlay = document.createElement("figcaption");
-					overlay.className = "absolute bottom-0 left-0 w-full bg-gradient-to-t from-black/70 to-transparent text-white text-xs sm:text-sm px-4 py-2 opacity-0 group-hover:opacity-100 transition-opacity duration-500";
-					overlay.textContent = img.caption;
-					fig.appendChild(overlay);
-				}
-
-				fig.appendChild(image);
-				galleryGrid.appendChild(fig);
-
-				fig.addEventListener("click", () => openLightbox(idx));
-				fig.addEventListener("keydown", (e) => {
-					if (e.key === "Enter" || e.key === " ") openLightbox(idx);
-				});
-			});
-
+			// Gallery Lightbox Functionality for Hardcoded Images
+			const galleryImgs = Array.from(document.querySelectorAll(".gallery-img"));
 			const lightbox = document.getElementById("lightbox");
 			const lightboxImg = document.getElementById("lightboxImg");
 			const lightboxClose = document.getElementById("lightboxClose");
 
-			const lbNav = document.createElement("div");
-			lbNav.className = "lb-nav";
+			// Add nav buttons if not present
+			let lbNav = lightbox.querySelector(".lb-nav");
+			if (!lbNav) {
+				lbNav = document.createElement("div");
+				lbNav.className = "lb-nav";
+				const prevBtn = document.createElement("button");
+				prevBtn.className = "lb-btn ml-2";
+				prevBtn.innerHTML = '<svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>';
+				prevBtn.setAttribute("aria-label", "Previous image");
+				const nextBtn = document.createElement("button");
+				nextBtn.className = "lb-btn mr-2";
+				nextBtn.innerHTML = '<svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>';
+				nextBtn.setAttribute("aria-label", "Next image");
+				lbNav.appendChild(prevBtn);
+				lbNav.appendChild(nextBtn);
+				lightbox.appendChild(lbNav);
+			}
+			const prevBtn = lbNav.querySelector(".lb-btn.ml-2");
+			const nextBtn = lbNav.querySelector(".lb-btn.mr-2");
 
-			const prevBtn = document.createElement("button");
-			prevBtn.className = "lb-btn ml-2";
-			prevBtn.innerHTML = '<svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>';
-			prevBtn.setAttribute("aria-label", "Previous image");
-
-			const nextBtn = document.createElement("button");
-			nextBtn.className = "lb-btn mr-2";
-			nextBtn.innerHTML = '<svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>';
-			nextBtn.setAttribute("aria-label", "Next image");
-
-			lbNav.appendChild(prevBtn);
-			lbNav.appendChild(nextBtn);
-			lightbox.appendChild(lbNav);
+			let currentIdx = 0;
 
 			function showLightboxImage(idx) {
 				currentIdx = idx;
-				const img = IMAGE_DATA[idx];
+				const fig = galleryImgs[idx];
+				const img = fig.querySelector("img");
 				lightboxImg.src = img.src;
-				lightboxImg.alt = img.caption || "";
+				lightboxImg.alt = img.alt || "";
 			}
 
 			function openLightbox(idx) {
 				showLightboxImage(idx);
 				lightbox.classList.add("open");
-
 				setTimeout(() => {
 					lightboxClose.focus();
 				}, 100);
@@ -617,12 +561,12 @@
 			}
 
 			function showNext() {
-				let nextIdx = (currentIdx + 1) % IMAGE_DATA.length;
+				let nextIdx = (currentIdx + 1) % galleryImgs.length;
 				showLightboxImage(nextIdx);
 			}
 
 			function showPrev() {
-				let prevIdx = (currentIdx - 1 + IMAGE_DATA.length) % IMAGE_DATA.length;
+				let prevIdx = (currentIdx - 1 + galleryImgs.length) % galleryImgs.length;
 				showLightboxImage(prevIdx);
 			}
 
@@ -645,6 +589,13 @@
 				if (e.key === "Escape") closeLb();
 				if (e.key === "ArrowRight") showNext();
 				if (e.key === "ArrowLeft") showPrev();
+			});
+
+			galleryImgs.forEach((fig, idx) => {
+				fig.addEventListener("click", () => openLightbox(idx));
+				fig.addEventListener("keydown", (e) => {
+					if (e.key === "Enter" || e.key === " ") openLightbox(idx);
+				});
 			});
 
 			// Scroll To Top Button
