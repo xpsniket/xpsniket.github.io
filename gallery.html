@@ -123,7 +123,6 @@
 
 			/* Reveal */
 			.reveal {
-				opacity: 0;
 				transform: translateY(18px);
 				transition: opacity 0.9s cubic-bezier(0.4, 0.08, 0, 1), transform 0.9s cubic-bezier(0.4, 0.08, 0, 1);
 			}
@@ -179,16 +178,27 @@
 			.gallery-figure {
 				display: inline-block;
 				width: 100%;
-				margin-bottom: 1.25rem; /* matches gap-5 */
+				margin-bottom: 1.25rem;
 				position: relative;
 				break-inside: avoid;
 			}
 
+			.gallery-figure img.loaded {
+				opacity: 1;
+				filter: blur(0);
+				transform: scale(1);
+			}
+
 			.gallery-figure img {
 				width: 100%;
-				height: auto; /* keeps aspect ratio */
+				height: auto;
 				display: block;
-				border-radius: 0.5rem; /* optional styling */
+				border-radius: 0.5rem;
+				transition: transform 0.3s ease, filter 0.8s ease, opacity 0.5s ease;
+
+				opacity: 0;
+				filter: blur(10px);
+				transform: scale(1.05);
 			}
 
 			/* Lightbox */
@@ -376,111 +386,111 @@
 				</div>
 				<div id="galleryGrid" class="masonry">
 					<figure class="gallery-figure gallery-img" tabindex="0" aria-label="Natural light portrait">
-						<img src="images/DOC-20250809-WA0027_.jpg" alt="Natural light portrait" class="object-cover w-full h-full" loading="lazy" />
+						<img src="images/DOC-20250809-WA0027_.webp" alt="Natural light portrait" class="object-cover w-full h-full" loading="lazy" />
 						<figcaption class="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black/70 to-transparent text-white text-xs sm:text-sm px-4 py-2 opacity-0 group-hover:opacity-100 transition-opacity duration-500">Natural light portrait</figcaption>
 					</figure>
 					<figure class="gallery-figure gallery-img" tabindex="0" aria-label="Night street reflections">
-						<img src="images/1724753315832.jpg" alt="Night street reflections" class="object-cover w-full h-full" loading="lazy" />
+						<img src="images/1724753315832.webp" alt="Night street reflections" class="object-cover w-full h-full" loading="lazy" />
 						<figcaption class="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black/70 to-transparent text-white text-xs sm:text-sm px-4 py-2 opacity-0 group-hover:opacity-100 transition-opacity duration-500">Night street reflections</figcaption>
 					</figure>
 					<figure class="gallery-figure gallery-img" tabindex="0" aria-label="Night street reflections">
-						<img src="images/DOC-20250809-WA0002_.jpg" alt="Night street reflections" class="object-cover w-full h-full" loading="lazy" />
+						<img src="images/DOC-20250809-WA0002_.webp" alt="Night street reflections" class="object-cover w-full h-full" loading="lazy" />
 						<figcaption class="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black/70 to-transparent text-white text-xs sm:text-sm px-4 py-2 opacity-0 group-hover:opacity-100 transition-opacity duration-500">Night street reflections</figcaption>
 					</figure>
 					<figure class="gallery-figure gallery-img" tabindex="0" aria-label="Night street reflections">
-						<img src="images/DOC-20250809-WA0005_.jpg" alt="Night street reflections" class="object-cover w-full h-full" loading="lazy" />
+						<img src="images/DOC-20250809-WA0005_.webp" alt="Night street reflections" class="object-cover w-full h-full" loading="lazy" />
 						<figcaption class="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black/70 to-transparent text-white text-xs sm:text-sm px-4 py-2 opacity-0 group-hover:opacity-100 transition-opacity duration-500">Night street reflections</figcaption>
 					</figure>
 					<figure class="gallery-figure gallery-img" tabindex="0" aria-label="Night street reflections">
-						<img src="images/DOC-20250809-WA0006_.jpg" alt="Night street reflections" class="object-cover w-full h-full" loading="lazy" />
+						<img src="images/DOC-20250809-WA0006_.webp" alt="Night street reflections" class="object-cover w-full h-full" loading="lazy" />
 						<figcaption class="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black/70 to-transparent text-white text-xs sm:text-sm px-4 py-2 opacity-0 group-hover:opacity-100 transition-opacity duration-500">Night street reflections</figcaption>
 					</figure>
 					<figure class="gallery-figure gallery-img" tabindex="0" aria-label="Night street reflections">
-						<img src="images/DOC-20250809-WA0007_.jpg" alt="Night street reflections" class="object-cover w-full h-full" loading="lazy" />
+						<img src="images/DOC-20250809-WA0007_.webp" alt="Night street reflections" class="object-cover w-full h-full" loading="lazy" />
 						<figcaption class="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black/70 to-transparent text-white text-xs sm:text-sm px-4 py-2 opacity-0 group-hover:opacity-100 transition-opacity duration-500">Night street reflections</figcaption>
 					</figure>
 					<figure class="gallery-figure gallery-img" tabindex="0" aria-label="Night street reflections">
-						<img src="images/DOC-20250809-WA0009_.jpg" alt="Night street reflections" class="object-cover w-full h-full" loading="lazy" />
+						<img src="images/DOC-20250809-WA0009_.webp" alt="Night street reflections" class="object-cover w-full h-full" loading="lazy" />
 						<figcaption class="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black/70 to-transparent text-white text-xs sm:text-sm px-4 py-2 opacity-0 group-hover:opacity-100 transition-opacity duration-500">Night street reflections</figcaption>
 					</figure>
 					<figure class="gallery-figure gallery-img" tabindex="0" aria-label="Night street reflections">
-						<img src="images/DOC-20250809-WA0010_.jpg" alt="Night street reflections" class="object-cover w-full h-full" loading="lazy" />
+						<img src="images/DOC-20250809-WA0010_.webp" alt="Night street reflections" class="object-cover w-full h-full" loading="lazy" />
 						<figcaption class="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black/70 to-transparent text-white text-xs sm:text-sm px-4 py-2 opacity-0 group-hover:opacity-100 transition-opacity duration-500">Night street reflections</figcaption>
 					</figure>
 					<figure class="gallery-figure gallery-img" tabindex="0" aria-label="Night street reflections">
-						<img src="images/DOC-20250809-WA0011_.jpg" alt="Night street reflections" class="object-cover w-full h-full" loading="lazy" />
+						<img src="images/DOC-20250809-WA0011_.webp" alt="Night street reflections" class="object-cover w-full h-full" loading="lazy" />
 						<figcaption class="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black/70 to-transparent text-white text-xs sm:text-sm px-4 py-2 opacity-0 group-hover:opacity-100 transition-opacity duration-500">Night street reflections</figcaption>
 					</figure>
 					<figure class="gallery-figure gallery-img" tabindex="0" aria-label="Night street reflections">
-						<img src="images/DOC-20250809-WA0012_.jpg" alt="Night street reflections" class="object-cover w-full h-full" loading="lazy" />
+						<img src="images/DOC-20250809-WA0012_.webp" alt="Night street reflections" class="object-cover w-full h-full" loading="lazy" />
 						<figcaption class="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black/70 to-transparent text-white text-xs sm:text-sm px-4 py-2 opacity-0 group-hover:opacity-100 transition-opacity duration-500">Night street reflections</figcaption>
 					</figure>
 					<figure class="gallery-figure gallery-img" tabindex="0" aria-label="Night street reflections">
-						<img src="images/DOC-20250809-WA0013_.jpg" alt="Night street reflections" class="object-cover w-full h-full" loading="lazy" />
+						<img src="images/DOC-20250809-WA0013_.webp" alt="Night street reflections" class="object-cover w-full h-full" loading="lazy" />
 						<figcaption class="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black/70 to-transparent text-white text-xs sm:text-sm px-4 py-2 opacity-0 group-hover:opacity-100 transition-opacity duration-500">Night street reflections</figcaption>
 					</figure>
 					<figure class="gallery-figure gallery-img" tabindex="0" aria-label="Night street reflections">
-						<img src="images/DOC-20250809-WA0014_.jpg" alt="Night street reflections" class="object-cover w-full h-full" loading="lazy" />
+						<img src="images/DOC-20250809-WA0014_.webp" alt="Night street reflections" class="object-cover w-full h-full" loading="lazy" />
 						<figcaption class="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black/70 to-transparent text-white text-xs sm:text-sm px-4 py-2 opacity-0 group-hover:opacity-100 transition-opacity duration-500">Night street reflections</figcaption>
 					</figure>
 					<figure class="gallery-figure gallery-img" tabindex="0" aria-label="Night street reflections">
-						<img src="images/DOC-20250809-WA0015_.jpg" alt="Night street reflections" class="object-cover w-full h-full" loading="lazy" />
+						<img src="images/DOC-20250809-WA0015_.webp" alt="Night street reflections" class="object-cover w-full h-full" loading="lazy" />
 						<figcaption class="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black/70 to-transparent text-white text-xs sm:text-sm px-4 py-2 opacity-0 group-hover:opacity-100 transition-opacity duration-500">Night street reflections</figcaption>
 					</figure>
 					<figure class="gallery-figure gallery-img" tabindex="0" aria-label="Night street reflections">
-						<img src="images/DOC-20250809-WA0016_.jpg" alt="Night street reflections" class="object-cover w-full h-full" loading="lazy" />
+						<img src="images/DOC-20250809-WA0016_.webp" alt="Night street reflections" class="object-cover w-full h-full" loading="lazy" />
 						<figcaption class="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black/70 to-transparent text-white text-xs sm:text-sm px-4 py-2 opacity-0 group-hover:opacity-100 transition-opacity duration-500">Night street reflections</figcaption>
 					</figure>
 					<figure class="gallery-figure gallery-img" tabindex="0" aria-label="Night street reflections">
-						<img src="images/DOC-20250809-WA0017_.jpg" alt="Night street reflections" class="object-cover w-full h-full" loading="lazy" />
+						<img src="images/DOC-20250809-WA0017_.webp" alt="Night street reflections" class="object-cover w-full h-full" loading="lazy" />
 						<figcaption class="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black/70 to-transparent text-white text-xs sm:text-sm px-4 py-2 opacity-0 group-hover:opacity-100 transition-opacity duration-500">Night street reflections</figcaption>
 					</figure>
 					<figure class="gallery-figure gallery-img" tabindex="0" aria-label="Night street reflections">
-						<img src="images/DOC-20250809-WA0018_.jpg" alt="Night street reflections" class="object-cover w-full h-full" loading="lazy" />
+						<img src="images/DOC-20250809-WA0018_.webp" alt="Night street reflections" class="object-cover w-full h-full" loading="lazy" />
 						<figcaption class="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black/70 to-transparent text-white text-xs sm:text-sm px-4 py-2 opacity-0 group-hover:opacity-100 transition-opacity duration-500">Night street reflections</figcaption>
 					</figure>
 					<figure class="gallery-figure gallery-img" tabindex="0" aria-label="Night street reflections">
-						<img src="images/DOC-20250809-WA0019_.jpg" alt="Night street reflections" class="object-cover w-full h-full" loading="lazy" />
+						<img src="images/DOC-20250809-WA0019_.webp" alt="Night street reflections" class="object-cover w-full h-full" loading="lazy" />
 						<figcaption class="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black/70 to-transparent text-white text-xs sm:text-sm px-4 py-2 opacity-0 group-hover:opacity-100 transition-opacity duration-500">Night street reflections</figcaption>
 					</figure>
 					<figure class="gallery-figure gallery-img" tabindex="0" aria-label="Night street reflections">
-						<img src="images/DOC-20250809-WA0020_.jpg" alt="Night street reflections" class="object-cover w-full h-full" loading="lazy" />
+						<img src="images/DOC-20250809-WA0020_.webp" alt="Night street reflections" class="object-cover w-full h-full" loading="lazy" />
 						<figcaption class="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black/70 to-transparent text-white text-xs sm:text-sm px-4 py-2 opacity-0 group-hover:opacity-100 transition-opacity duration-500">Night street reflections</figcaption>
 					</figure>
 					<figure class="gallery-figure gallery-img" tabindex="0" aria-label="Night street reflections">
-						<img src="images/DOC-20250809-WA0021_.jpg" alt="Night street reflections" class="object-cover w-full h-full" loading="lazy" />
+						<img src="images/DOC-20250809-WA0021_.webp" alt="Night street reflections" class="object-cover w-full h-full" loading="lazy" />
 						<figcaption class="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black/70 to-transparent text-white text-xs sm:text-sm px-4 py-2 opacity-0 group-hover:opacity-100 transition-opacity duration-500">Night street reflections</figcaption>
 					</figure>
 					<figure class="gallery-figure gallery-img" tabindex="0" aria-label="Night street reflections">
-						<img src="images/DOC-20250809-WA0022_.jpg" alt="Night street reflections" class="object-cover w-full h-full" loading="lazy" />
+						<img src="images/DOC-20250809-WA0022_.webp" alt="Night street reflections" class="object-cover w-full h-full" loading="lazy" />
 						<figcaption class="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black/70 to-transparent text-white text-xs sm:text-sm px-4 py-2 opacity-0 group-hover:opacity-100 transition-opacity duration-500">Night street reflections</figcaption>
 					</figure>
 					<figure class="gallery-figure gallery-img" tabindex="0" aria-label="Night street reflections">
-						<img src="images/DOC-20250809-WA0023_.jpg" alt="Night street reflections" class="object-cover w-full h-full" loading="lazy" />
+						<img src="images/DOC-20250809-WA0023_.webp" alt="Night street reflections" class="object-cover w-full h-full" loading="lazy" />
 						<figcaption class="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black/70 to-transparent text-white text-xs sm:text-sm px-4 py-2 opacity-0 group-hover:opacity-100 transition-opacity duration-500">Night street reflections</figcaption>
 					</figure>
 					<figure class="gallery-figure gallery-img" tabindex="0" aria-label="Night street reflections">
-						<img src="images/DOC-20250809-WA0025_.jpg" alt="Night street reflections" class="object-cover w-full h-full" loading="lazy" />
+						<img src="images/DOC-20250809-WA0025_.webp" alt="Night street reflections" class="object-cover w-full h-full" loading="lazy" />
 						<figcaption class="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black/70 to-transparent text-white text-xs sm:text-sm px-4 py-2 opacity-0 group-hover:opacity-100 transition-opacity duration-500">Night street reflections</figcaption>
 					</figure>
 					<figure class="gallery-figure gallery-img" tabindex="0" aria-label="Night street reflections">
-						<img src="images/DOC-20250809-WA0026_.jpg" alt="Night street reflections" class="object-cover w-full h-full" loading="lazy" />
+						<img src="images/DOC-20250809-WA0026_.webp" alt="Night street reflections" class="object-cover w-full h-full" loading="lazy" />
 						<figcaption class="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black/70 to-transparent text-white text-xs sm:text-sm px-4 py-2 opacity-0 group-hover:opacity-100 transition-opacity duration-500">Night street reflections</figcaption>
 					</figure>
 					<figure class="gallery-figure gallery-img" tabindex="0" aria-label="Night street reflections">
-						<img src="images/DOC-20250809-WA0028_.jpg" alt="Night street reflections" class="object-cover w-full h-full" loading="lazy" />
+						<img src="images/DOC-20250809-WA0028_.webp" alt="Night street reflections" class="object-cover w-full h-full" loading="lazy" />
 						<figcaption class="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black/70 to-transparent text-white text-xs sm:text-sm px-4 py-2 opacity-0 group-hover:opacity-100 transition-opacity duration-500">Night street reflections</figcaption>
 					</figure>
 					<figure class="gallery-figure gallery-img" tabindex="0" aria-label="Night street reflections">
-						<img src="images/IMG_20231030_163512_1.jpg" alt="Night street reflections" class="object-cover w-full h-full" loading="lazy" />
+						<img src="images/IMG_20231030_163512_1.webp" alt="Night street reflections" class="object-cover w-full h-full" loading="lazy" />
 						<figcaption class="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black/70 to-transparent text-white text-xs sm:text-sm px-4 py-2 opacity-0 group-hover:opacity-100 transition-opacity duration-500">Night street reflections</figcaption>
 					</figure>
 					<figure class="gallery-figure gallery-img" tabindex="0" aria-label="Night street reflections">
-						<img src="images/IMG_20240625_180812.jpg" alt="Night street reflections" class="object-cover w-full h-full" loading="lazy" />
+						<img src="images/IMG_20240625_180812.webp" alt="Night street reflections" class="object-cover w-full h-full" loading="lazy" />
 						<figcaption class="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black/70 to-transparent text-white text-xs sm:text-sm px-4 py-2 opacity-0 group-hover:opacity-100 transition-opacity duration-500">Night street reflections</figcaption>
 					</figure>
 					<figure class="gallery-figure gallery-img" tabindex="0" aria-label="Night street reflections">
-						<img src="images/IMG20221019165758.jpg" alt="Night street reflections" class="object-cover w-full h-full" loading="lazy" />
+						<img src="images/IMG20221019165758.webp" alt="Night street reflections" class="object-cover w-full h-full" loading="lazy" />
 						<figcaption class="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black/70 to-transparent text-white text-xs sm:text-sm px-4 py-2 opacity-0 group-hover:opacity-100 transition-opacity duration-500">Night street reflections</figcaption>
 					</figure>
 				</div>
@@ -630,6 +640,15 @@
 					});
 				});
 			}
+			document.querySelectorAll(".gallery-figure img").forEach((img) => {
+				if (img.complete) {
+					img.classList.add("loaded");
+				} else {
+					img.addEventListener("load", () => {
+						img.classList.add("loaded");
+					});
+				}
+			});
 		</script>
 	</body>
 </html>
